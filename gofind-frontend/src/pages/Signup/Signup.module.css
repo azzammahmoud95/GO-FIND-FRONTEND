@@ -1,5 +1,47 @@
-.topSide{
-    height: 196px;
-    background-color: green;
+.loginPage {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+.topSide {
+    height: 186px;
     position: relative;
+  }
+.logoStyle{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+}
+.CenterSide{
+    width: 100%;
+    position: relative;
+    background-color: #28A745;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+
+}
+
+.formStyle{
+    width: 420px;
+    height: 460px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #fafafa;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
 }
