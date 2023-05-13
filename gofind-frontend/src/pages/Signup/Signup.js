@@ -149,7 +149,7 @@ export default function Signup() {
               onChange={(event) =>
                 setFormValues({ ...formValues, email: event.target.value })
               }
-              error={!errors.email}
+              error={!!errors.email}
               helperText={errors.email}
             />
             <TextField
