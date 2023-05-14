@@ -59,12 +59,13 @@ export default function Login() {
     const formData = {
       email: formValues.email,
       password: formValues.password,
+      isAdmin: formValues.isAdmin,
     };
 
     axios.post("http://localhost:5000/api/user/login", formData)
   .then(response => {
     console.log(response);
-    if(response.data === "admin@gmail.com"){
+    if(response.data.isAdmin === true){
     navigate('/dashboard/categories');
   }else{
     navigate('/')
