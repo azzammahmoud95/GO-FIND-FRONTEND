@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import PagenotFount404 from '../../assests/Illustration/404 Error Page not Found Amico.svg'
+import PagenotFount404 from '../../assests/Illustration/404 Error Page not Found with people connecting a plug-amico (1).svg'
 import styles from './ErrorPage.module.css'
 
 export default function ErrorPage() {
