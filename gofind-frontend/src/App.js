@@ -1,10 +1,28 @@
+import { useEffect, useState } from 'react';
 import './App.css';
 import AllRoutes from './components/routes';
+import { UserContext } from './userContext';
+import Cookies from 'js-cookie';
 
 function App() {
+  const [token, setToken] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isCheckAdmin, setIsCheckAdmin] = useState(false);
+
+  useEffect(() => {
+    const authToken = Cookies.get('header'); // Get the value of the 'header' cookie
+
+    if (authToken) {
+      setToken(authToken);
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   return (
     <div className="App">
-      <AllRoutes />
+      <UserContext.Provider value={{ token, isLoggedIn, setToken, setIsLoggedIn,  isCheckAdmin, setIsCheckAdmin }}>
+        <AllRoutes />
+      </UserContext.Provider>
     </div>
   );
 }

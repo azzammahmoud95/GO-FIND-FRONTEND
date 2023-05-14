@@ -13,10 +13,11 @@ export default function AllRoutes() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/dashboard/categories" element={<Categories/>} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<ErrorPage />} />
+
+          <Route path="/dashboard/categories" element={<Categories/>} />
 
         </Routes>
       </BrowserRouter>

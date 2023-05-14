@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable no-unused-vars */
+import React, { useState, useContext } from "react";
 import LogonameBlackGreen from "../.././assests/Elements/LogonameBlackGreen.svg";
 import styles from "./Login.module.css";
 import { TextField, Button, Typography, Alert } from "@mui/material";
@@ -7,8 +8,11 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import axios from "axios";
+import { UserContext } from "../../userContext";
 
 export default function Login() {
+  const { setToken, setIsLoggedIn,setIsCheckAdmin } = useContext(UserContext);
+
   const [showPassword, setShowPassword] = useState(false);
   const [formValues, setFormValues] = useState({
     email: "",
@@ -65,6 +69,10 @@ export default function Login() {
     axios.post("http://localhost:5000/api/user/login", formData)
   .then(response => {
     console.log(response);
+    const authToken = response.data.token;
+    setToken(authToken);
+    setIsLoggedIn(true)
+    
     if(response.data.isAdmin === true){
     navigate('/dashboard/categories');
   }else{
