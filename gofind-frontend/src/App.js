@@ -3,6 +3,7 @@ import './App.css';
 import AllRoutes from './components/routes';
 import { UserContext } from './userContext';
 import Cookies from 'js-cookie';
+import Header from './components/Header/Header.js';
 
 function App() {
   const [token, setToken] = useState(null);
@@ -20,9 +21,10 @@ function App() {
 
   return (
     <div className="App">
-      <UserContext.Provider value={{ token, isLoggedIn, setToken, setIsLoggedIn,  isCheckAdmin, setIsCheckAdmin,user, setUser }}>
+      {/* <UserContext.Provider value={{ token, isLoggedIn, setToken, setIsLoggedIn,  isCheckAdmin, setIsCheckAdmin,user, setUser }}>
         <AllRoutes />
-      </UserContext.Provider>
+      </UserContext.Provider> */}
+      <Header />
     </div>
   );
 }

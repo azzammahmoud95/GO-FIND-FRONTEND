@@ -17,7 +17,7 @@ export default function AllRoutes() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<ErrorPage />} />
-          <Route path="/unthorized" element={<Unauthorized />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
 
           <Route path="/dashboard/categories" element={<Categories/>} />
 
