@@ -8,6 +8,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import axios from "axios";
+import Cookies from "js-cookie"
 import { UserContext } from "../../userContext";
 
 export default function Login() {
@@ -70,9 +71,14 @@ export default function Login() {
   .then(response => {
     console.log(response);
     const authToken = response.data.token;
-    setToken(authToken);
-    setIsLoggedIn(true)
-    
+    // setToken(authToken);
+    // setIsLoggedIn(true)
+    if (response.status === 200) {
+      Cookies.set("token", authToken);
+      Cookies.set("isAdmin", response.data.isAdmin)
+      console.log(Cookies.get("isAdmin"))
+    }
+
     if(response.data.isAdmin === true){
     navigate('/dashboard/categories');
   }else{

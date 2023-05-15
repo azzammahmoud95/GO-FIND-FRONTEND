@@ -8,7 +8,7 @@ function App() {
   const [token, setToken] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isCheckAdmin, setIsCheckAdmin] = useState(false);
-
+  const [user, setUser] = useState(null);
   useEffect(() => {
     const authToken = Cookies.get('header'); // Get the value of the 'header' cookie
 
@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className="App">
-      <UserContext.Provider value={{ token, isLoggedIn, setToken, setIsLoggedIn,  isCheckAdmin, setIsCheckAdmin }}>
+      <UserContext.Provider value={{ token, isLoggedIn, setToken, setIsLoggedIn,  isCheckAdmin, setIsCheckAdmin,user, setUser }}>
         <AllRoutes />
       </UserContext.Provider>
     </div>

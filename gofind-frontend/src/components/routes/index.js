@@ -7,6 +7,7 @@ import Categories from "../../pages/Dashboard/Categories/Categories";
 import ErrorPage from "../../pages/ErrorPage/ErrorPage.js";
 import Signup from "../../pages/Signup/Signup.js";
 import Login from "../../pages/Login/Login";
+import Unauthorized from "../../pages/Unauthorized/Unauthorized.js";
 export default function AllRoutes() {
   return (
     <div>
@@ -16,6 +17,7 @@ export default function AllRoutes() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="*" element={<ErrorPage />} />
+          <Route path="/unthorized" element={<Unauthorized />} />
 
           <Route path="/dashboard/categories" element={<Categories/>} />
 
