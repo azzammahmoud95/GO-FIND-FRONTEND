@@ -2,28 +2,32 @@ import React from "react";
 import logoWhiteGreen from "../../assests/Elements/LogoWhiteGreen.svg";
 import styles from "./Header.module.css";
 import SearchBar from "../../components/SearchBar/SearchBar.js";
-import AddIcon from '@mui/icons-material/Add';
 import { Button } from "@mui/base";
+
 export default function Header() {
   return (
     <header className={styles.Header}>
       <div className={styles.headerWrapper}>
-        <img src={logoWhiteGreen} alt="logo white" style={{ width: "10rem" }} />
-        <SearchBar />
+        <img src={logoWhiteGreen} alt="logo white" style={{marginRight:"20px" }} className={styles.logo}/>
+        <SearchBar placeHoder={'Welcome to gofind here you can find you losts'} />
+        
         <Button
           variant="contained"
           style={{
             backgroundColor: "#28A745",
             textTransform: "capitalize",
             fontSize: "17px",
-            width: "10%",
             alignSelf: "center",
-            borderRadius: "15px",
-            padding:'10px 20px',
+            borderRadius: "10px",
+            padding:'10px 5px',
+            width:'150px',
             color: "white",
-            border: "2px solid whitesmoke",
+            border: "1px solid whitesmoke",
+            marginLeft:"20px",
+            fontWeight:'500'
+
           }}
-          startIcon={<AddIcon />}
+          className={styles.addItem}
         >
           Add Item
         </Button>

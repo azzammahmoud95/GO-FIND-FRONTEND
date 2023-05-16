@@ -2,7 +2,7 @@ import React from 'react'
 import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import styles from '../../components/Header/Header.module.css'
-export default function SearchBar() {
+export default function SearchBar( {placeHoder} ) {
   return (
     <div
           style={{
@@ -19,7 +19,6 @@ export default function SearchBar() {
             fullWidth
             size="small"
             style={{
-            //   width: "95%",
               outlineOffset: "0px",
               outline: "none",
               borderRadius: "7px",
@@ -27,7 +26,9 @@ export default function SearchBar() {
               borderBottomRightRadius: "0px",
               borderTopLeftRadius: "10px",
               borderBottomLeftRadius: "10px",
+              backgroundColor:'white'
             }}
+            placeholder={placeHoder}
           />
           <div
             style={{
