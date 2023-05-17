@@ -121,22 +121,19 @@ export default function AddListItems() {
             rows={4}
             multiline
           />
-          
-          {/* <Button
-              variant="contained"
-              type="submit"
-              style={{
-                backgroundColor: "#28A745",
-                textTransform: "capitalize",
-                fontSize: "17px",
-                width: "35%",
-                alignSelf: "center",
-                borderRadius: "10px",
-                marginBottom: "10px",
-              }}
-            >
-              Login
-            </Button> */}
+          <Stack
+            display="flex"
+            justifyContent="space-around"
+            alignItems='center'
+            flexDirection="row"
+            style={{ width: "100%" }}
+          >
+          <Button 
+        style={{ backgroundColor: "#FFF", width: "170px",borderRadius: '12px',color:"#28A745",fontWeight:"700", height:'40px',border:'1px solid green',fontSize:'17px',boxShadow: "0 0 2px rgba(0, 0, 0, 0.2)" }}  variant="outlined">Cancel</Button>
+
+        <Button type='submit'
+        style={{ backgroundColor: "#28A745", width: "170px",borderRadius: '12px',color:"#FFF",fontWeight:"700", height:'40px', border:"1px solid whitesmoke",fontSize:'17px',boxShadow: "0 0 2px rgba(0, 0, 0, 0.2)" }} variant="outlined">Post Item</Button>
+        </Stack>
         </form>
       </section>
     </>
