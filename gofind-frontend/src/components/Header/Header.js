@@ -3,14 +3,21 @@ import logoWhiteGreen from "../../assests/Elements/LogoWhiteGreen.svg";
 import styles from "./Header.module.css";
 import SearchBar from "../../components/SearchBar/SearchBar.js";
 import { Button } from "@mui/base";
+import {  useNavigate } from 'react-router-dom'
+import { Avatar } from "@mui/material";
 
 export default function Header() {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("add-list-items");
+  };
   return (
     <header className={styles.Header}>
       <div className={styles.headerWrapper}>
         <img src={logoWhiteGreen} alt="logo white" style={{marginRight:"20px" }} className={styles.logo}/>
         <SearchBar placeHoder={'Welcome to gofind here you can find you losts'} />
-        
+        <Avatar />
         <Button
           variant="contained"
           style={{
@@ -28,7 +35,9 @@ export default function Header() {
 
           }}
           className={styles.addItem}
+          onClick={handleNavigate}
         >
+          
           Add Item
         </Button>
       </div>
