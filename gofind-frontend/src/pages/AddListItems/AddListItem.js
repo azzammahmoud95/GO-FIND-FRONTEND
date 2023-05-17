@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AddListItems.module.css";
 import { Button } from "@mui/base";
 import {
@@ -10,7 +10,9 @@ import {
   MenuItem,
   Avatar,
 } from "@mui/material";
+import axios from "axios";
 export default function AddListItems() {
+
 //   const location = [
 //     {
 //       id: "1",
@@ -21,6 +23,19 @@ export default function AddListItems() {
 //       name: "Tripoli",
 //     },
 //   ];
+  const [locations, setLocations] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState('');
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/location')
+      .then(response => {
+        setLocations(response.data.message);
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },[]);
   return (
     <>
       <section style={{ display: "flex", justifyContent: "center" }}>
@@ -46,6 +61,7 @@ export default function AddListItems() {
               fullWidth
               style={{ width: "95%" }}
               required
+              // value={username}
             />
           </Stack>
           <Stack
@@ -61,6 +77,7 @@ export default function AddListItems() {
               type="email"
               style={{ width: "49%" }}
               required
+              // value={email}
             />
             <TextField
               label="phone"
@@ -69,6 +86,7 @@ export default function AddListItems() {
               type="number"
               style={{ width: "49%" }}
               required
+              // value={phone}
             />
           </Stack>
           <Stack
@@ -84,6 +102,7 @@ export default function AddListItems() {
               fullWidth
               required
               style={{ width: "49%" }}
+              // value={title}
             />
             <TextField
               type="file"
@@ -93,6 +112,7 @@ export default function AddListItems() {
               required
               focused
               style={{ width: "49%" }}
+              // value={image}
             />
           </Stack>
 
@@ -110,25 +130,31 @@ export default function AddListItems() {
               focused
               style={{ width: "49%" }}
               required
+              // value={date}
             />
 
-            <FormControl
-              style={{ width: "49%" }}
-              label="Location"
-              color="success"
-              fullWidth
-            >
-              <InputLabel id="location-select-label">Location</InputLabel>
-              <Select
-                labelId="location-select-label"
-                id="location-select"
-                required
-                label="Location"
-              >
-                <MenuItem value={"Azzam"}>Azzam</MenuItem>
-                <MenuItem value={"hassan"}>Hassan</MenuItem>
-              </Select>
-            </FormControl>
+        <FormControl
+          style={{ width: "49%" }}
+          label="Location"
+          color="success"
+          fullWidth
+        >
+          <InputLabel id="location-select-label">Location</InputLabel>
+          <Select
+            labelId="location-select-label"
+            id="location-select"
+            required
+            label="Location"
+            value={selectedLocation}
+            onChange={(event) => setSelectedLocation(event.target.value)}
+          >
+            {Array.isArray(locations) && locations.map((location) => (
+              <MenuItem key={location._id} value={location._id}>
+                {location.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
           </Stack>
           <TextField
             label="Description"
@@ -136,6 +162,7 @@ export default function AddListItems() {
             fullWidth
             rows={4}
             multiline
+            // value={description}
           />
           <Stack
             display="flex"
@@ -157,6 +184,7 @@ export default function AddListItems() {
                 boxShadow: "0 0 2px rgba(0, 0, 0, 0.2)",
               }}
               variant="outlined"
+              type="reset"
             >
               Cancel
             </Button>
