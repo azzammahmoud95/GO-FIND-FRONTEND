@@ -11,16 +11,16 @@ import {
   Avatar,
 } from "@mui/material";
 export default function AddListItems() {
-  const location = [
-    {
-      id: "1",
-      name: "Akkar",
-    },
-    {
-      id: "2",
-      name: "Tripoli",
-    },
-  ];
+//   const location = [
+//     {
+//       id: "1",
+//       name: "Akkar",
+//     },
+//     {
+//       id: "2",
+//       name: "Tripoli",
+//     },
+//   ];
   return (
     <>
       <section style={{ display: "flex", justifyContent: "center" }}>
@@ -34,20 +34,19 @@ export default function AddListItems() {
           <Stack
             display="flex"
             justifyContent="space-around"
-            alignItems='center'
+            alignItems="center"
             flexDirection="row"
             style={{ width: "100%" }}
           >
-            <Avatar sizes="10" sx={{ width: 55, height: 55 }}/>
+            <Avatar sizes="10" sx={{ width: 55, height: 55 }} />
             <TextField
-            type="text"
-            label="User Name"
-            color="success"
-            fullWidth
-            style={{width: "95%"}}
-            required
-
-          />
+              type="text"
+              label="User Name"
+              color="success"
+              fullWidth
+              style={{ width: "95%" }}
+              required
+            />
           </Stack>
           <Stack
             display="flex"
@@ -71,15 +70,32 @@ export default function AddListItems() {
               style={{ width: "49%" }}
               required
             />
-            
           </Stack>
-          <TextField
-            type="text"
-            label="Title"
-            color="success"
-            fullWidth
-            required
-          />
+          <Stack
+            display="flex"
+            justifyContent="space-between"
+            flexDirection="row"
+            style={{ width: "100%" }}
+          >
+            <TextField
+              type="text"
+              label="Title"
+              color="success"
+              fullWidth
+              required
+              style={{ width: "49%" }}
+            />
+            <TextField
+              type="file"
+              label="Image"
+              color="success"
+              fullWidth
+              required
+              focused
+              style={{ width: "49%" }}
+            />
+          </Stack>
+
           <Stack
             display="flex"
             justifyContent="space-between"
@@ -102,7 +118,7 @@ export default function AddListItems() {
               color="success"
               fullWidth
             >
-              <InputLabel id="title-select-label">Location</InputLabel>
+              <InputLabel id="location-select-label">Location</InputLabel>
               <Select
                 labelId="location-select-label"
                 id="location-select"
@@ -124,16 +140,45 @@ export default function AddListItems() {
           <Stack
             display="flex"
             justifyContent="space-around"
-            alignItems='center'
+            alignItems="center"
             flexDirection="row"
             style={{ width: "100%" }}
           >
-          <Button 
-        style={{ backgroundColor: "#FFF", width: "170px",borderRadius: '12px',color:"#28A745",fontWeight:"700", height:'40px',border:'1px solid green',fontSize:'17px',boxShadow: "0 0 2px rgba(0, 0, 0, 0.2)" }}  variant="outlined">Cancel</Button>
+            <Button
+              style={{
+                backgroundColor: "#FFF",
+                width: "170px",
+                borderRadius: "12px",
+                color: "#28A745",
+                fontWeight: "700",
+                height: "40px",
+                border: "1px solid green",
+                fontSize: "17px",
+                boxShadow: "0 0 2px rgba(0, 0, 0, 0.2)",
+              }}
+              variant="outlined"
+            >
+              Cancel
+            </Button>
 
-        <Button type='submit'
-        style={{ backgroundColor: "#28A745", width: "170px",borderRadius: '12px',color:"#FFF",fontWeight:"700", height:'40px', border:"1px solid whitesmoke",fontSize:'17px',boxShadow: "0 0 2px rgba(0, 0, 0, 0.2)" }} variant="outlined">Post Item</Button>
-        </Stack>
+            <Button
+              type="submit"
+              style={{
+                backgroundColor: "#28A745",
+                width: "170px",
+                borderRadius: "12px",
+                color: "#FFF",
+                fontWeight: "700",
+                height: "40px",
+                border: "1px solid whitesmoke",
+                fontSize: "17px",
+                boxShadow: "0 0 2px rgba(0, 0, 0, 0.2)",
+              }}
+              variant="outlined"
+            >
+              Post Item
+            </Button>
+          </Stack>
         </form>
       </section>
     </>

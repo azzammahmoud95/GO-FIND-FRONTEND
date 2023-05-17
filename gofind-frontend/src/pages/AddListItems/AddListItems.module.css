@@ -10,3 +10,9 @@
   justify-content: space-between;
   padding: 1%;
 }
+
+@media(max-width: 900px){
+  .FromAdd{
+  width: 100%;
+  }
+}
