@@ -12,30 +12,51 @@ import {
 } from "@mui/material";
 import axios from "axios";
 export default function AddListItems() {
+  //   const location = [
+  //     {
+  //       id: "1",
+  //       name: "Akkar",
+  //     },
+  //     {
+  //       id: "2",
+  //       name: "Tripoli",
+  //     },
+  //   ];
+  const [email, setEmail ] = useState('')
+  const [username, setUsername] = useState('')
+  const [phone, setPhone] = useState(0)
+  const [ title, setTitle] = useState('')
+  const [image, setImage] = useState('')
+  const [ dateFound, setDatefound] = useState('');
+  const [description, setDescription] = useState('')
 
-//   const location = [
-//     {
-//       id: "1",
-//       name: "Akkar",
-//     },
-//     {
-//       id: "2",
-//       name: "Tripoli",
-//     },
-//   ];
+  const [categories, setCategories] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState("");
   const [locations, setLocations] = useState([]);
-  const [selectedLocation, setSelectedLocation] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState("");
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/location')
-      .then(response => {
+    axios
+      .get("http://localhost:5000/api/location")
+      .then((response) => {
         setLocations(response.data.message);
         console.log(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
-  },[]);
+  }, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/category")
+      .then((response) => {
+        setCategories(response.data.message);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   return (
     <>
       <section style={{ display: "flex", justifyContent: "center" }}>
@@ -61,7 +82,9 @@ export default function AddListItems() {
               fullWidth
               style={{ width: "95%" }}
               required
-              // value={username}
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+
             />
           </Stack>
           <Stack
@@ -77,7 +100,8 @@ export default function AddListItems() {
               type="email"
               style={{ width: "49%" }}
               required
-              // value={email}
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
             />
             <TextField
               label="phone"
@@ -86,7 +110,8 @@ export default function AddListItems() {
               type="number"
               style={{ width: "49%" }}
               required
-              // value={phone}
+              value={phone}
+              onChange={(event) => setPhone(event.target.value)}
             />
           </Stack>
           <Stack
@@ -102,59 +127,86 @@ export default function AddListItems() {
               fullWidth
               required
               style={{ width: "49%" }}
-              // value={title}
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+
             />
             <TextField
-              type="file"
-              label="Image"
+              type="date"
+              label="Date Founded"
               color="success"
               fullWidth
               required
               focused
               style={{ width: "49%" }}
-              // value={image}
+              value={dateFound}
+              onChange={(event) => setDatefound(event.target.value)}
+
             />
           </Stack>
+          <TextField
+            type="file"
+            style={{ width: "100%" }}
+            color="success"
+            label="Image"
+            focused
+            value={image}
+            onChange={(event) => setImage(event.target.value)}
 
+          />
           <Stack
             display="flex"
             justifyContent="space-between"
             flexDirection="row"
             style={{ width: "100%" }}
           >
-            <TextField
-              label="Date Found"
+            <FormControl
+              style={{ width: "49%" }}
+              label="category"
               color="success"
               fullWidth
-              type="date"
-              focused
-              style={{ width: "49%" }}
-              required
-              // value={date}
-            />
+            >
+              <InputLabel id="category-select-label">category</InputLabel>
+              <Select
+                labelId="category-select-label"
+                id="category-select"
+                required
+                label="Category"
+                value={selectedCategories}
+                onChange={(event) => setSelectedCategories(event.target.value)}
+              >
+                {Array.isArray(categories) &&
+                  categories.map((category) => (
+                    <MenuItem key={category._id} value={category._id}>
+                      {category.name}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
 
-        <FormControl
-          style={{ width: "49%" }}
-          label="Location"
-          color="success"
-          fullWidth
-        >
-          <InputLabel id="location-select-label">Location</InputLabel>
-          <Select
-            labelId="location-select-label"
-            id="location-select"
-            required
-            label="Location"
-            value={selectedLocation}
-            onChange={(event) => setSelectedLocation(event.target.value)}
-          >
-            {Array.isArray(locations) && locations.map((location) => (
-              <MenuItem key={location._id} value={location._id}>
-                {location.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+            <FormControl
+              style={{ width: "49%" }}
+              label="Location"
+              color="success"
+              fullWidth
+            >
+              <InputLabel id="location-select-label">Location</InputLabel>
+              <Select
+                labelId="location-select-label"
+                id="location-select"
+                required
+                label="Location"
+                value={selectedLocation}
+                onChange={(event) => setSelectedLocation(event.target.value)}
+              >
+                {Array.isArray(locations) &&
+                  locations.map((location) => (
+                    <MenuItem key={location._id} value={location._id}>
+                      {location.name}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
           </Stack>
           <TextField
             label="Description"
@@ -162,7 +214,9 @@ export default function AddListItems() {
             fullWidth
             rows={4}
             multiline
-            // value={description}
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
+
           />
           <Stack
             display="flex"
