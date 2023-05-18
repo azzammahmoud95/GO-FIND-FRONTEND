@@ -6,7 +6,7 @@ import Cookies from "js-cookie";
 
 export default function AddListItems() {
   const [title, setTitle] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [dateFound, setDatefound] = useState("");
   const [description, setDescription] = useState("");
   const [categories, setCategories] = useState([]);
@@ -45,7 +45,7 @@ export default function AddListItems() {
       setUserId(userIdFromCookie);
     }
   }, []);
-
+ console.log(image)
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData();
@@ -56,13 +56,9 @@ export default function AddListItems() {
     formData.append("locationId", selectedLocation);
     formData.append("dateFound", dateFound);
     formData.append("description", description);
-
+    console.log(formData);
     axios
-      .post("http://localhost:5000/api/item/additem", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
+      .post("http://localhost:5000/api/item/additem", formData)
       .then((response) => {
         console.log(response);
         setTitle("");
@@ -165,7 +161,7 @@ export default function AddListItems() {
             style={{ width: "100%" }}
             color="success"
             label="Image"
-            value={image}
+           
             onChange={(event) => setImage(event.target.files[0])}
             focused
           />
