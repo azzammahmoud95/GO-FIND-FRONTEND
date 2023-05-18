@@ -1,43 +1,23 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AddListItems.module.css";
-import { Button } from "@mui/base";
-import {
-  TextField,
-  Stack,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Avatar,
-} from "@mui/material";
+import { Button, TextField, Stack, FormControl, InputLabel, Select, MenuItem, Avatar } from "@mui/material";
 import axios from "axios";
-export default function AddListItems() {
-  //   const location = [
-  //     {
-  //       id: "1",
-  //       name: "Akkar",
-  //     },
-  //     {
-  //       id: "2",
-  //       name: "Tripoli",
-  //     },
-  //   ];
-  const [email, setEmail ] = useState('')
-  const [username, setUsername] = useState('')
-  const [phone, setPhone] = useState(0)
-  const [ title, setTitle] = useState('')
-  const [image, setImage] = useState('')
-  const [ dateFound, setDatefound] = useState('');
-  const [description, setDescription] = useState('')
 
+export default function AddListItems() {
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [phone, setPhone] = useState(0);
+  const [title, setTitle] = useState('');
+  const [image, setImage] = useState('');
+  const [dateFound, setDatefound] = useState('');
+  const [description, setDescription] = useState('');
   const [categories, setCategories] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState("");
+  const [selectedCategories, setSelectedCategories] = useState('');
   const [locations, setLocations] = useState([]);
-  const [selectedLocation, setSelectedLocation] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState('');
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/location")
+    axios.get("http://localhost:5000/api/location")
       .then((response) => {
         setLocations(response.data.message);
         console.log(response.data);
@@ -46,9 +26,9 @@ export default function AddListItems() {
         console.log(error);
       });
   }, []);
+
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/category")
+    axios.get("http://localhost:5000/api/category")
       .then((response) => {
         setCategories(response.data.message);
         console.log(response.data);
@@ -57,10 +37,39 @@ export default function AddListItems() {
         console.log(error);
       });
   }, []);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = {
+      title,
+      userId: username,
+      email,
+      image,
+      categoryId: selectedCategories,
+      locationId: selectedLocation,
+      dateFound,
+      description,
+      phone,
+    };
+
+    axios.post('http://localhost:5000/api/item/additem', data)
+      .then(response => {
+        console.log(response);
+        setTitle('');
+        setUsername('');
+        setEmail('');
+        setSelectedCategories('');
+        setImage('');
+        setSelectedLocation('');
+        setDatefound('');
+        setPhone(0);
+      })
+      .catch(error => console.log(error));
+  };
   return (
     <>
       <section style={{ display: "flex", justifyContent: "center" }}>
-        <form
+        <form action="post" onSubmit={handleSubmit}
           className={styles.FromAdd}
           style={{ boxShadow: "0 0 3px rgba(0, 0, 0, 0.2)" }}
         >
