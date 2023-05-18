@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AddListItems.module.css";
-import { Button, TextField, Stack, FormControl, InputLabel, Select, MenuItem, Avatar } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Alert,
+  Stack,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Avatar,
+} from "@mui/material";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -14,6 +24,7 @@ export default function AddListItems() {
   const [locations, setLocations] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState("");
   const [userId, setUserId] = useState("");
+  const [successAlert, setSuccessAlert] = useState(false);
 
   useEffect(() => {
     axios
@@ -45,7 +56,7 @@ export default function AddListItems() {
       setUserId(userIdFromCookie);
     }
   }, []);
- console.log(image)
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData();
@@ -62,14 +73,16 @@ export default function AddListItems() {
       .then((response) => {
         console.log(response);
         setTitle("");
-        setImage("");
+        setImage(null);
         setSelectedCategories("");
         setSelectedLocation("");
         setDatefound("");
         setDescription("");
+        setSuccessAlert(true);
       })
       .catch((error) => console.log(error));
   };
+  
 
   return (
     <>
@@ -89,7 +102,12 @@ export default function AddListItems() {
             flexDirection="row"
             style={{ width: "100%" }}
           >
-                    <Avatar sizes="10" sx={{bgcolor: '#28A745',width: 55, height: 55}}>{Cookies.get("username").charAt(0).toUpperCase()}</Avatar>
+            <Avatar
+              sizes="10"
+              sx={{ bgcolor: "#28A745", width: 55, height: 55 }}
+            >
+              {Cookies.get("username").charAt(0).toUpperCase()}
+            </Avatar>
             <TextField
               type="text"
               label="User Name"
@@ -118,7 +136,7 @@ export default function AddListItems() {
               value={Cookies.get("email")}
             />
             <TextField
-              label="Email"
+              label="Phone"
               color="success"
               fullWidth
               type="number"
@@ -161,9 +179,10 @@ export default function AddListItems() {
             style={{ width: "100%" }}
             color="success"
             label="Image"
-           
+            helperText="Accept only jpg/png files"
             onChange={(event) => setImage(event.target.files[0])}
             focused
+            required
           />
           <Stack
             display="flex"
@@ -171,7 +190,12 @@ export default function AddListItems() {
             flexDirection="row"
             style={{ width: "100%" }}
           >
-            <FormControl style={{ width: "49%" }} label="category" color="success" fullWidth>
+            <FormControl
+              style={{ width: "49%" }}
+              label="Category"
+              color="success"
+              fullWidth
+            >
               <InputLabel id="category-select-label">Category</InputLabel>
               <Select
                 labelId="category-select-label"
@@ -189,7 +213,12 @@ export default function AddListItems() {
                   ))}
               </Select>
             </FormControl>
-            <FormControl style={{ width: "49%" }} label="Location" color="success" fullWidth>
+            <FormControl
+              style={{ width: "49%" }}
+              label="Location"
+              color="success"
+              fullWidth
+            >
               <InputLabel id="location-select-label">Location</InputLabel>
               <Select
                 labelId="location-select-label"
@@ -216,6 +245,7 @@ export default function AddListItems() {
             multiline
             value={description}
             onChange={(event) => setDescription(event.target.value)}
+            helperText="Accept at least 20 characters"
           />
           <Stack
             display="flex"
@@ -261,6 +291,11 @@ export default function AddListItems() {
           </Stack>
         </form>
       </section>
+      {successAlert && (
+        <Alert color="success" severity="success" onClose={() => setSuccessAlert(false)}>
+          Item sent successfully!
+        </Alert>
+      )}
     </>
   );
 }
