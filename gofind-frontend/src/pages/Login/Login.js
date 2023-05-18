@@ -76,6 +76,10 @@ export default function Login() {
     if (response.status === 200) {
       Cookies.set("token", authToken);
       Cookies.set("isAdmin", response.data.isAdmin)
+      Cookies.set('email',response.data.email)
+      Cookies.set('username', response.data.username)
+      Cookies.set('phone', response.data.phone)
+      Cookies.set('userId', response.data._id)
       console.log(Cookies.get("isAdmin"))
     }
 

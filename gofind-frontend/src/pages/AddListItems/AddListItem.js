@@ -2,22 +2,22 @@ import React, { useEffect, useState } from "react";
 import styles from "./AddListItems.module.css";
 import { Button, TextField, Stack, FormControl, InputLabel, Select, MenuItem, Avatar } from "@mui/material";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 export default function AddListItems() {
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [phone, setPhone] = useState(0);
-  const [title, setTitle] = useState('');
-  const [image, setImage] = useState('');
-  const [dateFound, setDatefound] = useState('');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState("");
+  const [image, setImage] = useState("");
+  const [dateFound, setDatefound] = useState("");
+  const [description, setDescription] = useState("");
   const [categories, setCategories] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState('');
+  const [selectedCategories, setSelectedCategories] = useState("");
   const [locations, setLocations] = useState([]);
-  const [selectedLocation, setSelectedLocation] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState("");
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/location")
+    axios
+      .get("http://localhost:5000/api/location")
       .then((response) => {
         setLocations(response.data.message);
         console.log(response.data);
@@ -28,7 +28,8 @@ export default function AddListItems() {
   }, []);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/category")
+    axios
+      .get("http://localhost:5000/api/category")
       .then((response) => {
         setCategories(response.data.message);
         console.log(response.data);
@@ -38,38 +39,45 @@ export default function AddListItems() {
       });
   }, []);
 
+  useEffect(() => {
+    const userIdFromCookie = Cookies.get("userId");
+    if (userIdFromCookie) {
+      setUserId(userIdFromCookie);
+    }
+  }, []);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = {
       title,
-      userId: username,
-      email,
+      userId,
       image,
       categoryId: selectedCategories,
       locationId: selectedLocation,
       dateFound,
       description,
-      phone,
     };
+    console.log(data);
 
-    axios.post('http://localhost:5000/api/item/additem', data)
-      .then(response => {
+    axios
+      .post("http://localhost:5000/api/item/additem", data)
+      .then((response) => {
         console.log(response);
-        setTitle('');
-        setUsername('');
-        setEmail('');
-        setSelectedCategories('');
-        setImage('');
-        setSelectedLocation('');
-        setDatefound('');
-        setPhone(0);
+        setTitle("");
+        setImage("");
+        setSelectedCategories("");
+        setSelectedLocation("");
+        setDatefound("");
+        setDescription("");
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   };
+
   return (
     <>
       <section style={{ display: "flex", justifyContent: "center" }}>
-        <form action="post" onSubmit={handleSubmit}
+        <form
+          onSubmit={handleSubmit}
           className={styles.FromAdd}
           style={{ boxShadow: "0 0 3px rgba(0, 0, 0, 0.2)" }}
         >
@@ -91,9 +99,8 @@ export default function AddListItems() {
               fullWidth
               style={{ width: "95%" }}
               required
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-
+              disabled
+              value={Cookies.get("username")}
             />
           </Stack>
           <Stack
@@ -109,18 +116,18 @@ export default function AddListItems() {
               type="email"
               style={{ width: "49%" }}
               required
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              disabled
+              value={Cookies.get("email")}
             />
             <TextField
-              label="phone"
+              label="Email"
               color="success"
               fullWidth
               type="number"
               style={{ width: "49%" }}
               required
-              value={phone}
-              onChange={(event) => setPhone(event.target.value)}
+              disabled
+              value={Cookies.get("phone")}
             />
           </Stack>
           <Stack
@@ -138,7 +145,6 @@ export default function AddListItems() {
               style={{ width: "49%" }}
               value={title}
               onChange={(event) => setTitle(event.target.value)}
-
             />
             <TextField
               type="date"
@@ -146,11 +152,10 @@ export default function AddListItems() {
               color="success"
               fullWidth
               required
-              focused
               style={{ width: "49%" }}
               value={dateFound}
               onChange={(event) => setDatefound(event.target.value)}
-
+              focused
             />
           </Stack>
           <TextField
@@ -158,10 +163,9 @@ export default function AddListItems() {
             style={{ width: "100%" }}
             color="success"
             label="Image"
-            focused
             value={image}
             onChange={(event) => setImage(event.target.value)}
-
+            focused
           />
           <Stack
             display="flex"
@@ -169,13 +173,8 @@ export default function AddListItems() {
             flexDirection="row"
             style={{ width: "100%" }}
           >
-            <FormControl
-              style={{ width: "49%" }}
-              label="category"
-              color="success"
-              fullWidth
-            >
-              <InputLabel id="category-select-label">category</InputLabel>
+            <FormControl style={{ width: "49%" }} label="category" color="success" fullWidth>
+              <InputLabel id="category-select-label">Category</InputLabel>
               <Select
                 labelId="category-select-label"
                 id="category-select"
@@ -192,13 +191,7 @@ export default function AddListItems() {
                   ))}
               </Select>
             </FormControl>
-
-            <FormControl
-              style={{ width: "49%" }}
-              label="Location"
-              color="success"
-              fullWidth
-            >
+            <FormControl style={{ width: "49%" }} label="Location" color="success" fullWidth>
               <InputLabel id="location-select-label">Location</InputLabel>
               <Select
                 labelId="location-select-label"
@@ -225,7 +218,6 @@ export default function AddListItems() {
             multiline
             value={description}
             onChange={(event) => setDescription(event.target.value)}
-
           />
           <Stack
             display="flex"
@@ -251,7 +243,6 @@ export default function AddListItems() {
             >
               Cancel
             </Button>
-
             <Button
               type="submit"
               style={{
