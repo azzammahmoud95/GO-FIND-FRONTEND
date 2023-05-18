@@ -48,19 +48,21 @@ export default function AddListItems() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = {
-      title,
-      userId,
-      image,
-      categoryId: selectedCategories,
-      locationId: selectedLocation,
-      dateFound,
-      description,
-    };
-    console.log(data);
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("userId", userId);
+    formData.append("image", image);
+    formData.append("categoryId", selectedCategories);
+    formData.append("locationId", selectedLocation);
+    formData.append("dateFound", dateFound);
+    formData.append("description", description);
 
     axios
-      .post("http://localhost:5000/api/item/additem", data)
+      .post("http://localhost:5000/api/item/additem", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((response) => {
         console.log(response);
         setTitle("");
@@ -91,7 +93,7 @@ export default function AddListItems() {
             flexDirection="row"
             style={{ width: "100%" }}
           >
-            <Avatar sizes="10" sx={{ width: 55, height: 55 }} />
+                    <Avatar sizes="10" sx={{bgcolor: '#28A745',width: 55, height: 55}}>{Cookies.get("username").charAt(0).toUpperCase()}</Avatar>
             <TextField
               type="text"
               label="User Name"
@@ -164,7 +166,7 @@ export default function AddListItems() {
             color="success"
             label="Image"
             value={image}
-            onChange={(event) => setImage(event.target.value)}
+            onChange={(event) => setImage(event.target.files[0])}
             focused
           />
           <Stack

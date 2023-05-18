@@ -5,7 +5,7 @@ import SearchBar from "../../components/SearchBar/SearchBar.js";
 import { Button } from "@mui/base";
 import {  useNavigate } from 'react-router-dom'
 import { Avatar } from "@mui/material";
-
+import Cookies from "js-cookie";
 export default function Header() {
   const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ export default function Header() {
       <div className={styles.headerWrapper}>
         <img src={logoWhiteGreen} alt="logo white" style={{marginRight:"20px" }} className={styles.logo}/>
         <SearchBar placeHoder={'Welcome to gofind here you can find you losts'} />
-        <Avatar />
+        <Avatar sx={{bgcolor: '#28A745'}}>{Cookies.get("username").charAt(0).toUpperCase()}</Avatar>
         <Button
           variant="contained"
           style={{
