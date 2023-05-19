@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -11,7 +11,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import TextField from '@mui/material/TextField';
 import styles from './EditDeletePost.module.css'
-
+import axios from 'axios';
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -41,6 +41,7 @@ TabPanel.propTypes = {
 export default function EditDeletePost() {
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
+  const [notFoundItem,setNotFoundItem] = useState([])
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -57,7 +58,17 @@ export default function EditDeletePost() {
   const handleClose = () => {
     setOpen(false);
   };
-
+  useEffect(() => {
+    axios
+      .get('http://localhost:5000/api/item')
+      .then((response) => {
+        setNotFoundItem(response.data.message);
+        console.log(response.data.message);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -78,9 +89,9 @@ export default function EditDeletePost() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        {[1, 2, 3].map((index) => (
+        {notFoundItem.map((notFoundItem) => (
           <Box
-            key={index}
+            key={notFoundItem.id}
             sx={{
               display: 'flex',
               alignItems: 'center',
@@ -92,20 +103,20 @@ export default function EditDeletePost() {
             className={styles.cardContainer}
           >
               <img
-                src={`https://picsum.photos/200/300?random=${index}`}
-                alt="Image"
-                width={200}
-                height={100}
-              />
-              <Typography variant="h6" >Title jld;i  ioa ifo;aj fiao</Typography>
-              <Typography variant="body1">Description jifajf ;</Typography>
-              <Typography variant="body1">Date Found fa;j </Typography>
-              <Typography variant="body1">Categories</Typography>
-              <Typography variant="body1">Location</Typography>
+                  src={`http://localhost:5000/api/item/${notFoundItem.image}`}
+                  alt="Image"
+                  width={200}
+                  height={100}
+                />
+              <Typography variant="h6" >{notFoundItem.title.substring(0,10)+`..`}</Typography>
+              <Typography variant="body1">{notFoundItem.description.substring(0,10)+`..`}</Typography>
+              <Typography variant="body1">{notFoundItem.categoryId.name.substring(0,10)+`..`}</Typography>
+              <Typography variant="body1">{notFoundItem.locationId.name.substring(0,10)+`..`}</Typography>
+              <Typography variant="body1">{notFoundItem.dateFound.substring(0,10)}</Typography>
 
             <div>
               <Button
-                style={{border:'2px solid green',borderRadius:'6px'}}
+                style={{border:'2px solid green',borderRadius:'7px'}}
                 onClick={handleEdit}
                 color="success"
                 
@@ -116,7 +127,7 @@ export default function EditDeletePost() {
                 variant="contained"
                 onClick={handleDelete}
                 color="success"
-                style={{marginLeft:"4px",borderRadius:'6px'}}
+                style={{marginLeft:"4px",borderRadius:'7px'}}
               >
                 Delete
               </Button>
