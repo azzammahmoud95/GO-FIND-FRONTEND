@@ -82,11 +82,17 @@ export default function AddListItems() {
       })
       .catch((error) => console.log(error));
   };
-  
 
   return (
     <>
-      <section style={{ display: "flex", justifyContent: "center" }}>
+      <section
+        style={{
+          display: "flex",
+          alignItems: "center",
+          flexDirection: "column",
+          justifyContent:'space-around'
+        }}
+      >
         <form
           onSubmit={handleSubmit}
           className={styles.FromAdd}
@@ -95,6 +101,15 @@ export default function AddListItems() {
           <h1>
             Post The <span style={{ color: "#28A745" }}>Founded Item</span>
           </h1>
+          {successAlert && (
+        <Alert
+          color="success"
+          severity="success"
+          onClose={() => setSuccessAlert(false)}
+        >
+          Item sent successfully!
+        </Alert>
+      )}
           <Stack
             display="flex"
             justifyContent="space-around"
@@ -290,12 +305,13 @@ export default function AddListItems() {
             </Button>
           </Stack>
         </form>
+
+        <section className={styles.FromAdd} style={{ boxShadow: "0 0 3px rgba(0, 0, 0, 0.2)" }}>
+              
+        </section>
       </section>
-      {successAlert && (
-        <Alert color="success" severity="success" onClose={() => setSuccessAlert(false)}>
-          Item sent successfully!
-        </Alert>
-      )}
+      
+      
     </>
   );
 }
