@@ -13,6 +13,7 @@ import DialogActions from '@mui/material/DialogActions';
 import TextField from '@mui/material/TextField';
 import styles from './EditDeletePost.module.css'
 import axios from 'axios';
+import Cookies from 'js-cookie'
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -52,9 +53,23 @@ export default function EditDeletePost() {
     setOpen(true);
   };
 
-  const handleDelete = () => {
-    // Perform delete operation
+  const handleDelete = (itemId) => {
+    axios
+      .patch(`http://localhost:5000/api/item/edit/${itemId}`, { isFound: true })
+      .then((response) => {
+        // Update the item's isFound property to true in the local state
+        setItem((prevItems) =>
+          prevItems.map((item) =>
+            item._id === itemId ? { ...item, isFound: true } : item
+          )
+        );
+        console.log('Item soft deleted successfully.');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+  
 
   const handleClose = () => {
     setOpen(false);
@@ -90,7 +105,7 @@ export default function EditDeletePost() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        {item.filter(item => item.isFound === false).map((item) => (
+        {item.filter(item => item.isFound === false  && item.userId.username === Cookies.get('username')).map((item) => (
           <Box
             key={item._id}
             sx={{
@@ -117,7 +132,7 @@ export default function EditDeletePost() {
 
             <div>
               <Button
-                style={{border:'2px solid #28A745',color:'#28A745',borderRadius:'7px'}}
+                style={{border:'2px solid #28A745',color:'#28A745',borderRadius:'9px'}}
                 onClick={handleEdit}
                 
                 
@@ -126,9 +141,9 @@ export default function EditDeletePost() {
               </Button>
               <Button
                 variant="contained"
-                onClick={handleDelete}
+                onClick={() => handleDelete(item._id)}
                 
-                style={{marginLeft:"4px",borderRadius:'7px',backgroundColor:'#28A745'}}
+                style={{marginLeft:"4px",borderRadius:'9px',backgroundColor:'#28A745'}}
               >
                 Delete
               </Button>
@@ -137,7 +152,7 @@ export default function EditDeletePost() {
         ))}
       </TabPanel>
       <TabPanel value={value} index={1}>
-      {item.filter(item => item.isFound === true).map((item) => (
+      {item.filter(item => item.isFound === true && item.userId.username === Cookies.get('username')).map((item) => (
           <Box
             key={item._id}
             sx={{
@@ -162,7 +177,7 @@ export default function EditDeletePost() {
               <Typography variant="body1"  className={styles.details}>{item.locationId.name.substring(0,10)+`..`}</Typography>
               <Typography variant="body1"  >{item.dateFound.substring(0,10)}</Typography>
 
-            <Box style={{padding:'12px', backgroundColor:'#f7bfbe', borderRadius:'10px',color:'red',fontWeight:'600'}}>Founded</Box>
+            <Box style={{padding:'12px', backgroundColor:'#f7bfbe', borderRadius:'9px',color:'red',fontWeight:'600'}}>Founded</Box>
           </Box>
         ))}
       </TabPanel>
@@ -200,8 +215,8 @@ export default function EditDeletePost() {
         </DialogContent>
         
         <DialogActions style={{display:'flex',justifyContent:'space-around', }}>
-          <Button onClick={handleClose}  style={{border:'2px solid #28A745',borderRadius:'7px',color:'#28A745',width:'20%'}}>Cancel</Button>
-          <Button onClick={handleClose} variant="contained"  autoFocus style={{border:'2px solid #28A745',borderRadius:'7px',backgroundColor:'#28A745',width:'20%'}}>
+          <Button onClick={handleClose}  style={{border:'2px solid #28A745',borderRadius:'9px',color:'#28A745',width:'20%'}}>Cancel</Button>
+          <Button onClick={handleClose} variant="contained"  autoFocus style={{border:'2px solid #28A745',borderRadius:'9px',backgroundColor:'#28A745',width:'20%'}}>
             Save
           </Button>
         </DialogActions>

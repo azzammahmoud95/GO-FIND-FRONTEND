@@ -184,7 +184,7 @@ export default function AddListItems() {
               color="success"
               fullWidth
               required
-              style={{ width: "49%" }}
+              style={{ width: "49%",colorScheme:'green' }}
               value={dateFound}
               onChange={(event) => setDatefound(event.target.value)}
               focused
