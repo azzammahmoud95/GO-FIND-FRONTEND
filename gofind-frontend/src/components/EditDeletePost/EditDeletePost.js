@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
@@ -41,7 +42,7 @@ TabPanel.propTypes = {
 export default function EditDeletePost() {
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
-  const [notFoundItem,setNotFoundItem] = useState([])
+  const [item,setItem] = useState([])
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -62,7 +63,7 @@ export default function EditDeletePost() {
     axios
       .get('http://localhost:5000/api/item')
       .then((response) => {
-        setNotFoundItem(response.data.message);
+        setItem(response.data.message);
         console.log(response.data.message);
       })
       .catch((error) => {
@@ -70,7 +71,7 @@ export default function EditDeletePost() {
       });
   }, []);
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%' }} >
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
           value={value}
@@ -89,9 +90,9 @@ export default function EditDeletePost() {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        {notFoundItem.map((notFoundItem) => (
+        {item.filter(item => item.isFound === false).map((item) => (
           <Box
-            key={notFoundItem.id}
+            key={item._id}
             sx={{
               display: 'flex',
               alignItems: 'center',
@@ -103,22 +104,22 @@ export default function EditDeletePost() {
             className={styles.cardContainer}
           >
               <img
-                  src={`http://localhost:5000/api/item/${notFoundItem.image}`}
+                  src={`http://localhost:5000/${item.image}`}
                   alt="Image"
                   width={200}
                   height={100}
                 />
-              <Typography variant="h6" >{notFoundItem.title.substring(0,10)+`..`}</Typography>
-              <Typography variant="body1">{notFoundItem.description.substring(0,10)+`..`}</Typography>
-              <Typography variant="body1">{notFoundItem.categoryId.name.substring(0,10)+`..`}</Typography>
-              <Typography variant="body1">{notFoundItem.locationId.name.substring(0,10)+`..`}</Typography>
-              <Typography variant="body1">{notFoundItem.dateFound.substring(0,10)}</Typography>
+              <Typography variant="h6" >{item.title.substring(0,10)+`..`}</Typography>
+              <Typography variant="body1"  className={styles.details}>{item.description.substring(0,10)+`..`}</Typography>
+              <Typography variant="body1" className={styles.details}>{item.categoryId.name.substring(0,10)+`..`}</Typography>
+              <Typography variant="body1"  className={styles.details}>{item.locationId.name.substring(0,10)+`..`}</Typography>
+              <Typography variant="body1"  >{item.dateFound.substring(0,10)}</Typography>
 
             <div>
               <Button
-                style={{border:'2px solid green',borderRadius:'7px'}}
+                style={{border:'2px solid #28A745',color:'#28A745',borderRadius:'7px'}}
                 onClick={handleEdit}
-                color="success"
+                
                 
               >
                 Edit
@@ -126,8 +127,8 @@ export default function EditDeletePost() {
               <Button
                 variant="contained"
                 onClick={handleDelete}
-                color="success"
-                style={{marginLeft:"4px",borderRadius:'7px'}}
+                
+                style={{marginLeft:"4px",borderRadius:'7px',backgroundColor:'#28A745'}}
               >
                 Delete
               </Button>
@@ -136,10 +137,37 @@ export default function EditDeletePost() {
         ))}
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+      {item.filter(item => item.isFound === true).map((item) => (
+          <Box
+            key={item._id}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              py: 2,
+              borderBottom: '1px solid rgba(109, 125, 147, 0.15)',
+              flexWrap:'wrap',
+            }}
+            className={styles.cardContainer}
+          >
+              <img
+                  src={`http://localhost:5000/${item.image}`}
+                  alt="Image"
+                  width={200}
+                  height={100}
+                />
+              <Typography variant="h6" >{item.title.substring(0,10)+`..`}</Typography>
+              <Typography variant="body1"  className={styles.details}>{item.description.substring(0,10)+`..`}</Typography>
+              <Typography variant="body1" className={styles.details}>{item.categoryId.name.substring(0,10)+`..`}</Typography>
+              <Typography variant="body1"  className={styles.details}>{item.locationId.name.substring(0,10)+`..`}</Typography>
+              <Typography variant="body1"  >{item.dateFound.substring(0,10)}</Typography>
+
+            <Box style={{padding:'12px', backgroundColor:'#f7bfbe', borderRadius:'10px',color:'red',fontWeight:'600'}}>Founded</Box>
+          </Box>
+        ))}
       </TabPanel>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Edit Post</DialogTitle>
+      <Dialog open={open} onClose={handleClose} >
+        <DialogTitle style={{alignSelf:'center',fontWeight:"600",color:"#394452"}}>Edit <span style={{color:'#28A745'}}>Post</span></DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -157,12 +185,23 @@ export default function EditDeletePost() {
             type="text"
             fullWidth
             color="success"
+            multiline
+            rows={4}
+          />
+          <TextField
+            margin="dense"
+            id="Image"
+            label="Image"
+            type="file"
+            fullWidth
+            color="success"
+            focused
           />
         </DialogContent>
         
-        <DialogActions>
-          <Button onClick={handleClose} color="success">Cancel</Button>
-          <Button onClick={handleClose} variant="contained" color="success" autoFocus>
+        <DialogActions style={{display:'flex',justifyContent:'space-around', }}>
+          <Button onClick={handleClose}  style={{border:'2px solid #28A745',borderRadius:'7px',color:'#28A745',width:'20%'}}>Cancel</Button>
+          <Button onClick={handleClose} variant="contained"  autoFocus style={{border:'2px solid #28A745',borderRadius:'7px',backgroundColor:'#28A745',width:'20%'}}>
             Save
           </Button>
         </DialogActions>

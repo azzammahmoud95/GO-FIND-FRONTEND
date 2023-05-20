@@ -21,10 +21,9 @@ function App() {
 
   return (
     <div className="App">
-      {/* <UserContext.Provider value={{ token, isLoggedIn, setToken, setIsLoggedIn,  isCheckAdmin, setIsCheckAdmin,user, setUser }}>
+      <UserContext.Provider value={{ token, isLoggedIn, setToken, setIsLoggedIn,  isCheckAdmin, setIsCheckAdmin,user, setUser }}>
         <AllRoutes />
-      </UserContext.Provider> */}
-      <EditDeletePost />
+      </UserContext.Provider>
     </div>
   );
 }

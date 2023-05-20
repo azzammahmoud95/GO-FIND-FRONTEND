@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Cookies from "js-cookie";
+import EditDeletePost from "../../components/EditDeletePost/EditDeletePost";
 
 export default function AddListItems() {
   const [title, setTitle] = useState("");
@@ -306,8 +307,8 @@ export default function AddListItems() {
           </Stack>
         </form>
 
-        <section className={styles.FromAdd} style={{ boxShadow: "0 0 3px rgba(0, 0, 0, 0.2)" }}>
-              
+        <section className={styles.FromAdd} style={{ boxShadow: "0 0 3px rgba(0, 0, 0, 0.2)",height:'100%' }}>
+              <EditDeletePost />
         </section>
       </section>
       
