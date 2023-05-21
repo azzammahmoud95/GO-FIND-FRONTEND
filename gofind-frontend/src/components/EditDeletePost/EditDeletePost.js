@@ -69,8 +69,9 @@ export default function EditDeletePost({handleSubmit}) {
   },[handleSubmit]);
   const handleDelete = (itemId) => {
     axios
-      .patch(`http://localhost:5000/api/item/${itemId}`, { isFound: true })
+      .put(`http://localhost:5000/api/item/isfound/${itemId}`, { isFound: true })
       .then((response) => {
+        console.log(response)
         // Update the item's isFound property to true in the local state
         setItem((prevItems) =>
           prevItems.map((item) =>
