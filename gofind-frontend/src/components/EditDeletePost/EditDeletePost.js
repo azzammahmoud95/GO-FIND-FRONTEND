@@ -40,7 +40,7 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export default function EditDeletePost() {
+export default function EditDeletePost({handleSubmit}) {
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
   const [item,setItem] = useState([])
@@ -52,24 +52,6 @@ export default function EditDeletePost() {
   const handleEdit = () => {
     setOpen(true);
   };
-
-  const handleDelete = (itemId) => {
-    axios
-      .patch(`http://localhost:5000/api/item/edit/${itemId}`, { isFound: true })
-      .then((response) => {
-        // Update the item's isFound property to true in the local state
-        setItem((prevItems) =>
-          prevItems.map((item) =>
-            item._id === itemId ? { ...item, isFound: true } : item
-          )
-        );
-        console.log('Item soft deleted successfully.');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-  
 
   const handleClose = () => {
     setOpen(false);
@@ -84,7 +66,23 @@ export default function EditDeletePost() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  },[handleSubmit]);
+  const handleDelete = (itemId) => {
+    axios
+      .patch(`http://localhost:5000/api/item/${itemId}`, { isFound: true })
+      .then((response) => {
+        // Update the item's isFound property to true in the local state
+        setItem((prevItems) =>
+          prevItems.map((item) =>
+            item._id === itemId ? { ...item, isFound: true } : item
+          )
+        );
+        console.log('Item soft deleted successfully.');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <Box sx={{ width: '100%' }} >
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

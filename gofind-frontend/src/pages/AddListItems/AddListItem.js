@@ -308,7 +308,7 @@ export default function AddListItems() {
         </form>
 
         <section className={styles.FromAdd} style={{ boxShadow: "0 0 3px rgba(0, 0, 0, 0.2)",height:'100%' }}>
-              <EditDeletePost />
+              <EditDeletePost handleSubmit={handleSubmit}/>
         </section>
       </section>
       
