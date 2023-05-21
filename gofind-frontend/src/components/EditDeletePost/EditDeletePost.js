@@ -10,7 +10,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
-import TextField from '@mui/material/TextField';
+import {TextField, FormControl, MenuItem, Stack, Select,InputLabel} from '@mui/material';
 import styles from './EditDeletePost.module.css'
 import axios from 'axios';
 import Cookies from 'js-cookie'
@@ -40,7 +40,7 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export default function EditDeletePost({handleSubmit}) {
+export default function EditDeletePost({handleSubmit, categories, selectedCategories,locations, selectedLocation, setSelectedCategories, setSelectedLocation}) {
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
   const [item,setItem] = useState([])
@@ -182,15 +182,96 @@ export default function EditDeletePost({handleSubmit}) {
       </TabPanel>
       <Dialog open={open} onClose={handleClose} >
         <DialogTitle style={{alignSelf:'center',fontWeight:"600",color:"#394452"}}>Edit <span style={{color:'#28A745'}}>Post</span></DialogTitle>
-        <DialogContent>
+        <DialogContent >
+        <Stack
+            display="flex"
+            justifyContent="space-between"
+            flexDirection="row"
+            style={{ width: "100%" }}
+          >
+            <TextField
+              type="text"
+              label="Title"
+              color="success"
+              fullWidth
+              required
+              style={{ width: "49%" }}
+              // value={title}
+              // onChange={(event) => setTitle(event.target.value)}
+            />
+            <TextField
+              type="date"
+              label="Date Founded"
+              color="success"
+              fullWidth
+              required
+              style={{ width: "49%",colorScheme:'green' }}
+              // value={dateFound}
+              // onChange={(event) => setDatefound(event.target.value)}
+              focused
+            />
+          </Stack>
+          <Stack
+            display="flex"
+            justifyContent="space-between"
+            flexDirection="row"
+            style={{ width: "100%" }}
+          >
+            <FormControl
+              style={{ width: "49%" }}
+              label="Category"
+              color="success"
+              fullWidth
+            >
+              <InputLabel id="category-select-label">Category</InputLabel>
+              <Select
+                labelId="category-select-label"
+                id="category-select"
+                required
+                label="Category"
+                value={selectedCategories}
+                onChange={(event) => setSelectedCategories(event.target.value)}
+              >
+                {Array.isArray(categories) &&
+                  categories.map((category) => (
+                    <MenuItem key={category._id} value={category._id}>
+                      {category.name}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
+            <FormControl
+              style={{ width: "49%" }}
+              label="Location"
+              color="success"
+              fullWidth
+            >
+              <InputLabel id="location-select-label">Location</InputLabel>
+              <Select
+                labelId="location-select-label"
+                id="location-select"
+                required
+                label="Location"
+                value={selectedLocation}
+                onChange={(event) => setSelectedLocation(event.target.value)}
+              >
+                {Array.isArray(locations) &&
+                  locations.map((location) => (
+                    <MenuItem key={location._id} value={location._id}>
+                      {location.name}
+                    </MenuItem>
+                  ))}
+              </Select>
+            </FormControl>
+          </Stack>
           <TextField
-            autoFocus
             margin="dense"
-            id="title"
-            label="Title"
-            type="text"
+            id="Image"
+            label="Image"
+            type="file"
             fullWidth
             color="success"
+            focused
           />
           <TextField
             margin="dense"
@@ -202,15 +283,7 @@ export default function EditDeletePost({handleSubmit}) {
             multiline
             rows={4}
           />
-          <TextField
-            margin="dense"
-            id="Image"
-            label="Image"
-            type="file"
-            fullWidth
-            color="success"
-            focused
-          />
+          
         </DialogContent>
         
         <DialogActions style={{display:'flex',justifyContent:'space-around', }}>
