@@ -14,7 +14,7 @@ import {
 import axios from "axios";
 import Cookies from "js-cookie";
 import EditDeletePost from "../../components/EditDeletePost/EditDeletePost";
-
+import { useNavigate } from "react-router-dom";
 export default function AddListItems() {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState(null);
@@ -26,6 +26,8 @@ export default function AddListItems() {
   const [selectedLocation, setSelectedLocation] = useState("");
   const [userId, setUserId] = useState("");
   const [successAlert, setSuccessAlert] = useState(false);
+
+  const navigate  = useNavigate()
 
   useEffect(() => {
     axios
@@ -284,8 +286,9 @@ export default function AddListItems() {
               }}
               variant="outlined"
               type="reset"
+              onClick={() => navigate('/')}
             >
-              Cancel
+              Back to Home
             </Button>
             <Button
               type="submit"
