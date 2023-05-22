@@ -10,7 +10,8 @@ import { Button, Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
-
+import CallIcon from '@mui/icons-material/Call';
+import EmailIcon from '@mui/icons-material/Email';
 export default function Home() {
   const renderAvatar = () => {
     if (username) {
@@ -162,7 +163,7 @@ export default function Home() {
       <img
             src={`http://localhost:5000/${item.image}`}
             alt="card pics"
-            width={370}
+            width={350}
             height={200}
                 />
       <div className={styles.infoWrapper}>
@@ -171,12 +172,23 @@ export default function Home() {
         <h4>{item.location}</h4>
         <h4>{item.category}</h4>
         <p>{item.description}</p>
-        <small>{item.dateFound}</small>
-        <small>{item.categoryId.name}</small>
-        <small>{item.locationId.name}</small>
-        <small>{item.userId.username}</small>
-        <a href={`tel:+961${item.userId.phone}`}>{item.userId.phone}</a>
-        <a href={`mailto:${item.userId.email}`}>{item.userId.email}</a>
+        <small><strong>Date: </strong>{item.dateFound}</small>
+        <small><strong>Category: </strong>{item.categoryId.name}</small>
+        <small><strong>Location: </strong>{item.locationId.name}</small>
+        <div className={styles.buttonWrapper}>
+  <a href={`tel:+961${item.userId.phone}`} className={styles.phoneButton}>
+    <span style={{ display: 'flex', alignItems: 'center' }}>
+      <CallIcon style={{ color: 'white' }} />
+      <span style={{ marginLeft: '0.5rem' }}>Call</span>
+    </span>
+  </a>
+  <a style={{ justifyContent: 'center' }} href={`mailto:${item.userId.email}`} className={styles.emailButton}>
+    <span style={{ display: 'flex', alignItems: 'center' }}>
+      <EmailIcon style={{ color: '#28A745' }} />
+      <span style={{ marginLeft: '0.5rem' }}>Mail</span>
+    </span>
+  </a>
+</div>
 
       </div>
     </section>

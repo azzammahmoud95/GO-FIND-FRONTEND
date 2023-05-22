@@ -43,15 +43,49 @@
 .card{
     display: flex;
     align-self: center;
-    width: 50%;
+    width: 57%;
+    background-color: #fafafa;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    padding: 10px;
 }
 .infoWrapper{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-left: 20px;
 }
 
 .cardWrapper{
     display: flex;
     flex-direction: column;
+}
+.buttonWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+
+}
+.phoneButton{
+    background-color: #28A745;
+    color: whitesmoke;
+    width: 100px;
+    padding: 8px;
+    border-radius: 10px;
+    align-items: center;
+    font-weight: 700;
+    
+}
+.emailButton{
+    border: 2px solid #28A745;
+    padding: 7px;
+    width: 100px;
+    color: #28A745;
+    border-radius: 10px;
+    font-weight: 700;
+    margin-left: 10px;
 }
 
