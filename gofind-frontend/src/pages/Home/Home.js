@@ -12,20 +12,33 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import CallIcon from '@mui/icons-material/Call';
 import EmailIcon from '@mui/icons-material/Email';
+import {Menu,MenuItem} from '@mui/material'
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LogoutIcon from "@mui/icons-material/Logout";
+import IconButton from '@mui/material/IconButton';
 export default function Home() {
-  const renderAvatar = () => {
-    if (username) {
-      return (
-        <Avatar sx={{ bgcolor: "#28A745" }}>
-          {username.charAt(0).toUpperCase()}
-        </Avatar>
-      );
-    } else {
-      return <Avatar sx={{ bgcolor: "#28A745" }} />;
-    }
-  };
+  // const renderAvatar = () => {
+  //   if (username) {
+  //     return (
+  //       <Avatar sx={{ bgcolor: "#28A745" }}>
+  //         {username.charAt(0).toUpperCase()}
+  //       </Avatar>
+  //     );
+  //   } else {
+  //     return <Avatar sx={{ bgcolor: "#28A745" }} />;
+  //   }
+  // };
   const [items, setItems] = useState([]);
   const [selectedValue, setSelectedValue] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleAvatarClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleAvatarProfile = () => {
+    navigate('/add-list-items')
+  };
+
   // const searchOptions = () => {
   //   items.map((item, i) => {
   //     setOptions([...options, {...item, label: item.title}])
@@ -48,6 +61,20 @@ export default function Home() {
 
   const handleNavigate = () => {
     navigate("add-list-items");
+  };
+ const handleAvatarClose = () =>{
+  setAnchorEl(null)
+ }
+  const handleLogout = () => {
+    // Handle logout logic here
+    // ...
+    Cookies.remove("username");
+    Cookies.remove('email');
+    Cookies.remove('phone')
+    Cookies.remove('token')
+    Cookies.remove('isAdmin')
+    Cookies.remove('userId')
+    navigate("/login");
   };
   return (
     <>
@@ -96,24 +123,7 @@ export default function Home() {
                 />
               )}
             />
-            {/* <TextField
-            type="text"
-            className={styles.searchBar}
-            color="success"
-            fullWidth
-            size="small"
-            style={{
-              outlineOffset: "0px",
-              outline: "none",
-              borderRadius: "7px",
-              borderTopRightRadius: "0px",
-              borderBottomRightRadius: "0px",
-              borderTopLeftRadius: "10px",
-              borderBottomLeftRadius: "10px",
-              backgroundColor: "white",
-            }}
-            placeholder={"Welcome to gofind here you can find you losts"}
-          /> */}
+            
             <div
               style={{
                 height: "100%",
@@ -132,7 +142,48 @@ export default function Home() {
               />
             </div>
           </div>
-          {renderAvatar()}
+          {username ? (
+          <>
+            <IconButton
+              className={styles.AvatarButton}
+              onClick={handleAvatarClick}
+              
+            >
+              <Avatar className={styles.Avatar} sx={{ bgcolor: "#28A745" }}>
+                {username.charAt(0).toUpperCase()}
+              </Avatar>
+            </IconButton>
+            <Menu
+              id="account-menu"
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleAvatarClose}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+            >
+              <MenuItem onClick={handleAvatarProfile}>
+                <AccountCircleIcon className={styles.MenuIcon} />
+                My Account
+              </MenuItem>
+              <MenuItem onClick={handleLogout}>
+                <LogoutIcon className={styles.MenuIcon} />
+                Logout
+              </MenuItem>
+            </Menu>
+          </>
+        ) : (
+          <Avatar
+            className={styles.Avatar}
+            sx={{ bgcolor: "#28A745" }}
+            onClick={handleAvatarClick}
+          />
+        )}
 
           <Button
             variant="contained"
