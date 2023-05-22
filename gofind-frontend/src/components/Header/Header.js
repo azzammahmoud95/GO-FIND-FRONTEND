@@ -1,12 +1,17 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import logoWhiteGreen from "../../assests/Elements/LogoWhiteGreen.svg";
 import styles from "./Header.module.css";
-import SearchBar from "../../components/SearchBar/SearchBar.js";
+import TextField from "@mui/material/TextField";
+import SearchIcon from "@mui/icons-material/Search";
+// import SearchBar from "../../components/SearchBar/SearchBar.js";
 import { Button, Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import axios from 'axios'
 
 export default function Header() {
+  
   const navigate = useNavigate();
   const username = Cookies.get("username");
 
@@ -22,9 +27,7 @@ export default function Header() {
         </Avatar>
       );
     } else {
-      return (
-        <Avatar sx={{ bgcolor: "#28A745" }} />
-      );
+      return <Avatar sx={{ bgcolor: "#28A745" }} />;
     }
   };
 
@@ -37,7 +40,52 @@ export default function Header() {
           style={{ marginRight: "20px" }}
           className={styles.logo}
         />
-        <SearchBar placeHoder={"Welcome to gofind here you can find you losts"} />
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            flexWrap: "nowrap",
+            alignItems: "center",
+          }}
+        >
+          <TextField
+            type="text"
+            className={styles.searchBar}
+            color="success"
+            fullWidth
+            size="small"
+            style={{
+              outlineOffset: "0px",
+              outline: "none",
+              borderRadius: "7px",
+              borderTopRightRadius: "0px",
+              borderBottomRightRadius: "0px",
+              borderTopLeftRadius: "10px",
+              borderBottomLeftRadius: "10px",
+              backgroundColor: "white",
+            }}
+            placeholder={"Welcome to gofind here you can find you losts"}
+          />
+          <div
+            style={{
+              height: "100%",
+              padding: "6.5px",
+              backgroundColor: "#28a745",
+              borderTopRightRadius: "10px",
+              borderBottomRightRadius: "10px",
+            }}
+          >
+            <SearchIcon
+              style={{
+                backgroundColor: "#28a745",
+                color: "whitesmoke",
+                width: "100%",
+              }}
+            />
+          </div>
+        </div>
+        {/* <SearchBar placeHoder={"Welcome to gofind here you can find you losts"} /> */}
+        <div>
         {renderAvatar()}
         <Button
           variant="contained"
@@ -59,6 +107,7 @@ export default function Header() {
         >
           Add Item
         </Button>
+        </div>
       </div>
     </header>
   );

@@ -3,17 +3,17 @@
     display: flex;
     flex-wrap: nowrap;
     column-gap: 3px;
-    justify-content: space-around;    
+    justify-self: space-between;
 }
 .headerWrapper{
     display: flex;
-    /* width: 80%; */
+    
     align-items: center;  /* very important*/
     padding-top: 0.6%;
     padding-bottom: 0.4%;
     background-color: #222;
-    
-    justify-self: center;
+    width: 100%;
+    border: 2px solid red;
 }
 .logo{
     width: 10rem;
