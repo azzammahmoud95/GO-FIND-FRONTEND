@@ -10,6 +10,7 @@ import { Button, Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
+
 export default function Home() {
   const renderAvatar = () => {
     if (username) {
@@ -23,7 +24,7 @@ export default function Home() {
     }
   };
   const [items, setItems] = useState([]);
-
+  const [selectedValue, setSelectedValue] = useState(null);
   // const searchOptions = () => {
   //   items.map((item, i) => {
   //     setOptions([...options, {...item, label: item.title}])
@@ -74,6 +75,7 @@ export default function Home() {
               color="success"
               fullWidth
               size="small"
+              onChange={(event, newValue) => setSelectedValue(newValue)}
               style={{
                 outlineOffset: "0px",
                 outline: "none",
@@ -83,6 +85,7 @@ export default function Home() {
                 borderTopLeftRadius: "10px",
                 borderBottomLeftRadius: "10px",
                 backgroundColor: "white",
+                width:'60%'
               }}
               renderInput={(params) => (
                 <TextField
@@ -152,6 +155,34 @@ export default function Home() {
           </Button>
         </div>
       </header>
+      <section className={styles.cardWrapper}>
+  {items.filter((item) =>
+            selectedValue ? item.title === selectedValue.title : true
+          ).map((item) => (
+    <section className={styles.card} key={item.id}>
+      <img
+            src={`http://localhost:5000/${item.image}`}
+            alt="card pics"
+            width={250}
+            height={150}
+                />
+      <div className={styles.infoWrapper}>
+        <h2>{item.title}</h2>
+        <h4>{item.location}</h4>
+        <h4>{item.category}</h4>
+        <p>{item.description}</p>
+        <small>{item.dateFound}</small>
+        <small>{item.categoryId.name}</small>
+        <small>{item.locationId.name}</small>
+        <small>{item.userId.username}</small>
+        <small>{item.userId.phone}</small>
+        <small>{item.userId.email}</small>
+
+      </div>
+    </section>
+  ))}
+</section>
+
       <Footer />
     </>
   );
