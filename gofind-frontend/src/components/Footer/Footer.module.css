@@ -6,6 +6,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    margin-top: 200px;
 }
 .LogoAndSocial{
     display: flex;
@@ -40,6 +41,6 @@
     margin: 12px;
     margin-right: 20px;
 }
-a{
+.iconColor{
     color: #ebede9;
 }

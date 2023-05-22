@@ -145,7 +145,6 @@ export default function Home() {
               width: "150px",
               color: "white",
               border: "1px solid whitesmoke",
-              // marginLeft: "20px",
               fontWeight: "500",
             }}
             className={styles.addItem}
@@ -163,11 +162,12 @@ export default function Home() {
       <img
             src={`http://localhost:5000/${item.image}`}
             alt="card pics"
-            width={250}
-            height={150}
+            width={370}
+            height={200}
                 />
       <div className={styles.infoWrapper}>
         <h2>{item.title}</h2>
+        <h3>Founded by: {item.userId.username}</h3>
         <h4>{item.location}</h4>
         <h4>{item.category}</h4>
         <p>{item.description}</p>
@@ -175,8 +175,8 @@ export default function Home() {
         <small>{item.categoryId.name}</small>
         <small>{item.locationId.name}</small>
         <small>{item.userId.username}</small>
-        <small>{item.userId.phone}</small>
-        <small>{item.userId.email}</small>
+        <a href={`tel:+961${item.userId.phone}`}>{item.userId.phone}</a>
+        <a href={`mailto:${item.userId.email}`}>{item.userId.email}</a>
 
       </div>
     </section>

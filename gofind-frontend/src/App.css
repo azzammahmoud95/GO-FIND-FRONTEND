@@ -27,6 +27,9 @@ body{
   background-color: #eee;
   color:#394452;
 }
+a{
+  color: #394452;
+}
 :root{
   --primary-color: black;
 }

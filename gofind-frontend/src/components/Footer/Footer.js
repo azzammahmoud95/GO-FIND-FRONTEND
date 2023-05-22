@@ -37,20 +37,20 @@ export default function Footer() {
         <div className={styles.TextsocialMediaWrapper}>
           <h3>Reach Out to Our Social Media:</h3>
           <nav className={styles.IconsWrapper}>
-            <a href="https://www.facebook.com/azzam.mahmoud.35" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.facebook.com/azzam.mahmoud.35" target="_blank" rel="noopener noreferrer" className={styles.iconColor}>
               <FacebookIcon fontSize="large" className={styles.socialIcon} />
             </a>
-            <a href="https://www.instagram.com/azzam.mahmoud.95" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.instagram.com/azzam.mahmoud.95" target="_blank" rel="noopener noreferrer" className={styles.iconColor}>
               <InstagramIcon fontSize="large" className={styles.socialIcon} />
             </a>
-            <a href="https://www.pinterest.com/azzammahmoud" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.pinterest.com/azzammahmoud" target="_blank" rel="noopener noreferrer" className={styles.iconColor}>
               <PinterestIcon fontSize="large" className={styles.socialIcon} />
             </a>
-            <a href="https://www.linkedin.com/in/azzam-mahmoud" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.linkedin.com/in/azzam-mahmoud" target="_blank" rel="noopener noreferrer" className={styles.iconColor}>
                 <LinkedInIcon fontSize="large" className={styles.socialIcon} />
             </a>
           
-            <a href="https://wa.me/+96171937852" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/+96171937852" target="_blank" rel="noopener noreferrer" className={styles.iconColor}>
                 <WhatsAppIcon fontSize="large" className={styles.socialIcon} />
             </a>
           </nav>
