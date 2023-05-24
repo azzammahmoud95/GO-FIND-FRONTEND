@@ -18,32 +18,26 @@
     position: fixed;
     
 }
+.cardImg{
+width: 100%;
+height: 100%;
+
+}
+.imageHolder{
+    width: 350px;
+height: 200px;
+}
 .logo{
     width: 10rem;
 }
-@media (max-width:766px) {
-    .headerWrapper{
-        width: 100%;
-    }
-    .logo{
-        width: 20%;
-    }
-}
-@media (max-width:403px) {
-    .headerWrapper{
-        width: 98%;
 
-    }
-    
-    .addItem{
-        padding: 5px 1px !important;
-    }
-}
+
 
 .card{
     display: flex;
+    width: 70%;
     align-self: center;
-    width: 57%;
+    flex-wrap: nowrap;
     background-color: #fafafa;
     margin-bottom: 10px;
     border-radius: 10px;
@@ -54,13 +48,14 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     margin-left: 20px;
 }
 
 .cardWrapper{
     display: flex;
     flex-direction: column;
+    /* align-items: center; */
 }
 .buttonWrapper{
     display: flex;
@@ -88,4 +83,40 @@
     font-weight: 700;
     margin-left: 10px;
 }
+@media (max-width:1500px) {
+    .headerWrapper{
+        width: 100%;
+    }
+    .logo{
+        width: 20%;
+    }
+    .card{
+        flex-wrap: nowrap;
+        width: 100%;
+        align-self: center;
+    }
+    .imageHolder{
+        width: 40%;
+    }
+    .infoWrapper{
+        width:70%;
+    }
+}
+@media (max-width:403px) {
+    .headerWrapper{
+        width: 98%;
 
+    }
+    .cardWrapper{
+        display: flex;
+        
+        flex-direction: column;
+    }
+
+    .card{
+        width: 100%;
+    }
+    .addItem{
+        padding: 5px 1px !important;
+    }
+}

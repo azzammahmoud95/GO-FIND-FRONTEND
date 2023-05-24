@@ -16,6 +16,7 @@ import {Menu,MenuItem} from '@mui/material'
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import IconButton from '@mui/material/IconButton';
+import {Pagination} from "@mui/material";
 export default function Home() {
   // const renderAvatar = () => {
   //   if (username) {
@@ -211,18 +212,20 @@ export default function Home() {
             selectedValue ? item.title === selectedValue.title : true
           ).map((item) => (
     <section className={styles.card} key={item.id}>
-      <img
+    <div className={styles.imageHolder}> <img 
             src={`http://localhost:5000/${item.image}`}
             alt="card pics"
-            width={350}
-            height={200}
+            // width={350}
+            // height={200}
+            className={styles.cardImg}
                 />
+             </div>
       <div className={styles.infoWrapper}>
         <h2>{item.title}</h2>
         <h3>Founded by: {item.userId.username}</h3>
         <h4>{item.location}</h4>
         <h4>{item.category}</h4>
-        <p>{item.description}</p>
+        <p>{item.description.substring(0,50)+`..`}</p>
         <small><strong>Date: </strong>{item.dateFound}</small>
         <small><strong>Category: </strong>{item.categoryId.name}</small>
         <small><strong>Location: </strong>{item.locationId.name}</small>
@@ -245,8 +248,9 @@ export default function Home() {
     </section>
   ))}
 </section>
+<Pagination count={10} color="success" />
 
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
