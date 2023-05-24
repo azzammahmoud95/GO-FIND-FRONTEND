@@ -55,6 +55,7 @@ height: 200px;
 .cardWrapper{
     display: flex;
     flex-direction: column;
+    height: 1500px;
     /* align-items: center; */
 }
 .buttonWrapper{

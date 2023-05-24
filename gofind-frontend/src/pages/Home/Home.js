@@ -32,6 +32,8 @@ export default function Home() {
   const [items, setItems] = useState([]);
   const [selectedValue, setSelectedValue] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1); // Current page number
+  const itemsPerPage = 10;
   const handleAvatarClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -60,9 +62,7 @@ export default function Home() {
   const navigate = useNavigate();
   const username = Cookies.get("username");
 
-  const handleNavigate = () => {
-    navigate("add-list-items");
-  };
+  
  const handleAvatarClose = () =>{
   setAnchorEl(null)
  }
@@ -77,6 +77,13 @@ export default function Home() {
     Cookies.remove('userId')
     navigate("/login");
   };
+  const handlePageChange = (event, page) => {
+    setCurrentPage(page);
+  }
+  // Get the items for the current page
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
   return (
     <>
       <header className={styles.Header}>
@@ -201,14 +208,14 @@ export default function Home() {
               fontWeight: "500",
             }}
             className={styles.addItem}
-            onClick={handleNavigate}
+            onClick={() => navigate("add-list-items")}
           >
             Add Item
           </Button>
         </div>
       </header>
       <section className={styles.cardWrapper}>
-  {items.filter((item) =>
+  {currentItems.filter((item) =>
             selectedValue ? item.title === selectedValue.title : true
           ).map((item) => (
     <section className={styles.card} key={item.id}>
@@ -245,12 +252,19 @@ export default function Home() {
 </div>
 
       </div>
+      
     </section>
   ))}
+  <Pagination
+        style={{alignSelf:'center',marginBottom:'200px'}}
+        count={Math.ceil(items.length / itemsPerPage)}
+        color="success"
+        page={currentPage}
+        onChange={handlePageChange}
+      />
 </section>
-<Pagination count={10} color="success" />
 
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }
