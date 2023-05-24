@@ -15,6 +15,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import EditDeletePost from "../../components/EditDeletePost/EditDeletePost";
 import { useNavigate } from "react-router-dom";
+import UserProfile from "../../components/userProfile/UserProfile";
 export default function AddListItems() {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState(null);
@@ -96,7 +97,7 @@ export default function AddListItems() {
           justifyContent:'space-around'
         }}
       >
-        <form
+        {/* <form
           onSubmit={handleSubmit}
           className={styles.FromAdd}
           style={{ boxShadow: "0 0 3px rgba(0, 0, 0, 0.2)" }}
@@ -308,11 +309,14 @@ export default function AddListItems() {
               Post Item
             </Button>
           </Stack>
-        </form>
-
+        </form> */}
+        <section className={styles.userProfile} style={{ boxShadow: "0 0 3px rgba(0, 0, 0, 0.2)",height:'100%' }}>
+              <UserProfile />
+        </section>
         <section className={styles.FromAdd} style={{ boxShadow: "0 0 3px rgba(0, 0, 0, 0.2)",height:'100%' }}>
               <EditDeletePost handleSubmit={handleSubmit} categories={categories} selectedCategories={selectedCategories} locations={locations} selectedLocation={selectedLocation} setSelectedCategories={setSelectedCategories} setSelectedLocation={setSelectedLocation}/>
         </section>
+        
       </section>
       
       
