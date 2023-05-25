@@ -218,7 +218,7 @@ export default function Home() {
   {currentItems.filter((item) =>
             selectedValue ? item.title === selectedValue.title : true
           ).map((item) => (
-    <section className={styles.card} key={item.id}>
+    <section className={styles.card} key={item._id}>
     <div className={styles.imageHolder}> <img 
             src={`http://localhost:5000/${item.image}`}
             alt="card pics"
