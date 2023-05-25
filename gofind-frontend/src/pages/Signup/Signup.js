@@ -173,9 +173,11 @@ export default function Signup() {
               helperText={errors.password}
             />
             <TextField
+              type="tel"
               label="Phone"
               color="success"
-              type="number"
+              placeholder="03-123456"
+              pattern="^(\+|00)?(961)?(0)?[1-9]{1}[0-9]{7}$"
               value={formValues.phone}
               onChange={(event) =>
                 setFormValues({ ...formValues, phone: event.target.value })
