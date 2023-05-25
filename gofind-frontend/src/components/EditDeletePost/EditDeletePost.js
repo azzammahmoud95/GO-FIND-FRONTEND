@@ -104,7 +104,7 @@ export default function EditDeletePost({handleSubmit, categories, selectedCatego
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        {item.filter(item => item.isFound === false  && item.userId.username === Cookies.get('username')).map((item) => (
+        {item.filter(item => item.isFound === false  && item.userId._id === Cookies.get('userId')).map((item) => (
           <Box
             key={item._id}
             sx={{
@@ -151,7 +151,7 @@ export default function EditDeletePost({handleSubmit, categories, selectedCatego
         ))}
       </TabPanel>
       <TabPanel value={value} index={1}>
-      {item.filter(item => item.isFound === true && item.userId.username === Cookies.get('username')).map((item) => (
+      {item.filter(item => item.isFound === true && item.userId._id === Cookies.get('userId')).map((item) => (
           <Box
             key={item._id}
             sx={{

@@ -16,6 +16,7 @@ import {
 import Cookies from "js-cookie";
 import axios from "axios";
 import styles from "./UserProfile.module.css";
+
 export default function UserProfile() {
   const userId = Cookies.get("userId");
   const [userIDD, setUserIDD] = useState(0);
@@ -27,13 +28,23 @@ export default function UserProfile() {
     phone: "",
     gender: "",
   });
+  const [updatedProfile, setUpdatedProfile] = useState({
+    username: "",
+    email: "",
+    dateOfBirth: "",
+    phone: "",
+    gender: "",
+  });
+
   const handleEdit = () => {
+    setUpdatedProfile(userProfile);
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
+
   const gender = [
     {
       id: 1,
@@ -51,16 +62,38 @@ export default function UserProfile() {
 
   useEffect(() => {
     setUserIDD(userId);
+
     axios
       .get(`http://localhost:5000/api/user/${userId}`)
       .then((response) => {
         setUserProfile(response.data.message);
+        
         console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, [handleEdit]);
+  }, []);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUpdatedProfile((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSave = () => {
+    axios
+      .patch(`http://localhost:5000/api/user/${userId}`, updatedProfile)
+      .then((response) => {
+        setUpdatedProfile(response.data)
+        handleClose();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className={styles.profileWrapper}>
@@ -111,43 +144,43 @@ export default function UserProfile() {
         >
           Edit <span style={{ color: "#28A745" }}>Profile</span>
         </DialogTitle>
-        
-        
-        <DialogContent >
-        <Stack
+
+        <DialogContent>
+          <Stack
             display="flex"
             justifyContent="space-between"
             flexDirection="row"
-            style={{ width: "100%",marginBottom:'20px' }}
+            style={{ width: "100%", marginBottom: "20px" }}
           >
-        <Avatar
-          sizes="10"
-          sx={{
-            bgcolor: "#28A745",
-            width: 55,
-            height: 55,
-            alignSelf: "center",
-            marginRight:'5px',
-          }}
-        >
-          {Cookies.get("username").charAt(0).toUpperCase()}
-        </Avatar>
-          <TextField
-            margin="dense"
-            id="username"
-            label="username"
-            type="text"
-            fullWidth
-            color="success"
-            value={userProfile.username}
-            onChange={(event) =>(prevState) => ({ ...prevState , username: event.target.value})}
-          />
+            <Avatar
+              sizes="10"
+              sx={{
+                bgcolor: "#28A745",
+                width: 55,
+                height: 55,
+                alignSelf: "center",
+                marginRight: "5px",
+              }}
+            >
+              {Cookies.get("username").charAt(0).toUpperCase()}
+            </Avatar>
+            <TextField
+              margin="dense"
+              id="username"
+              label="Username"
+              type="text"
+              fullWidth
+              color="success"
+              name="username"
+              value={updatedProfile.username}
+              onChange={handleInputChange}
+            />
           </Stack>
           <Stack
             display="flex"
             justifyContent="space-between"
             flexDirection="row"
-            style={{ width: "100%",marginBottom:'20px' }}
+            style={{ width: "100%", marginBottom: "20px" }}
           >
             <TextField
               type="text"
@@ -156,8 +189,9 @@ export default function UserProfile() {
               fullWidth
               required
               style={{ width: "49%" }}
-              value={userProfile.email}
-              onChange={(event)=>(prevState) => ({ ...prevState, email: event.target.value })}
+              name="email"
+              value={updatedProfile.email}
+              onChange={handleInputChange}
             />
             <TextField
               type="tel"
@@ -168,12 +202,9 @@ export default function UserProfile() {
               fullWidth
               required
               style={{ width: "49%" }}
-              value={userProfile.phone} // Set the value to userProfile.phone
-              onChange={(event) =>
-                setUserProfile((prevState) => ({
-                  ...prevState,
-                  phone: event.target.value
-                }))}
+              name="phone"
+              value={updatedProfile.phone}
+              onChange={handleInputChange}
             />
           </Stack>
           <Stack
@@ -189,8 +220,9 @@ export default function UserProfile() {
               fullWidth
               required
               style={{ width: "49%", colorScheme: "green" }}
-              value={userProfile.dateOfBirth}
-              onChange={(event) =>(prevState) =>({ ...prevState,dateOfBirth:event.target.value})}
+              name="dateOfBirth"
+              value={updatedProfile.dateOfBirth}
+              onChange={handleInputChange}
               focused
             />
             <FormControl
@@ -205,9 +237,9 @@ export default function UserProfile() {
                 id="Gender-select"
                 required
                 label="Gender"
-                value={userProfile.gender}
-               onChange={(event) =>(prevState) => ({ ...prevState , gender: event.target.value})}
-          
+                name="gender"
+                value={updatedProfile.gender}
+                onChange={handleInputChange}
               >
                 {gender.map((option) => (
                   <MenuItem key={option.id} value={option.gender}>
@@ -234,7 +266,7 @@ export default function UserProfile() {
             Cancel
           </Button>
           <Button
-            onClick={handleClose}
+            onClick={handleSave}
             variant="contained"
             autoFocus
             style={{
