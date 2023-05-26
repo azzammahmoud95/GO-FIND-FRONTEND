@@ -16,6 +16,7 @@ import {
 import Cookies from "js-cookie";
 import axios from "axios";
 import styles from "./UserProfile.module.css";
+import { useNavigate } from "react-router-dom";
 
 export default function UserProfile() {
   const userId = Cookies.get("userId");
@@ -35,7 +36,7 @@ export default function UserProfile() {
     phone: "",
     gender: "",
   });
-
+ const navigate =  useNavigate()
   const handleEdit = () => {
     setUpdatedProfile(userProfile);
     setOpen(true);
@@ -126,18 +127,30 @@ export default function UserProfile() {
             <strong>Gender:</strong> {userProfile.gender}
           </h3>
         </div>
-        <Button
+        
+      </div>
+      <Button
           style={{
             border: "2px solid #28A745",
             color: "#28A745",
             borderRadius: "9px",
             width: "150px",
+            marginLeft:'60px'
           }}
           onClick={handleEdit}
         >
           Edit Profile
         </Button>
-      </div>
+        <Button style={{
+            backgroundColor: "#28A745",
+            borderRadius: "9px",
+            width: "150px",
+            color:'white',
+            marginLeft:'20px'
+          }}
+          onClick={() => navigate(-1)}>
+            Go to home
+        </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle
           style={{ alignSelf: "center", fontWeight: "600", color: "#394452" }}

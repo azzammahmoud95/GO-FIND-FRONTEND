@@ -89,6 +89,8 @@ export default function Home() {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = items.slice(indexOfFirstItem, indexOfLastItem);
+  const filteredItems = items.filter((item) => !item.isFound);
+
   return (
     <>
       <header className={styles.Header}>
@@ -109,7 +111,7 @@ export default function Home() {
           >
             <Autocomplete
               disablePortal
-              options={items}
+              options={filteredItems}
               freeSolo
               type="text"
               className={styles.searchBar}
