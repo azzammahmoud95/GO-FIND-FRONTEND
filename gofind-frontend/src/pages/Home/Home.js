@@ -10,13 +10,13 @@ import { Button, Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
-import CallIcon from '@mui/icons-material/Call';
-import EmailIcon from '@mui/icons-material/Email';
-import {Menu,MenuItem} from '@mui/material'
+import CallIcon from "@mui/icons-material/Call";
+import EmailIcon from "@mui/icons-material/Email";
+import { Menu, MenuItem } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
-import IconButton from '@mui/material/IconButton';
-import {Pagination} from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import { Pagination } from "@mui/material";
 import FormAddItem from "../../components/FormAddItem/FormAddItem.js";
 import Loader from "../../components/Loader/Loader.js";
 export default function Home() {
@@ -33,8 +33,12 @@ export default function Home() {
   // };
   const [items, setItems] = useState([]);
   const [selectedValue, setSelectedValue] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [locations, setLocations] = useState([]);
+  const [selectedLocation, setSelectedLocation] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [ isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1); // Current page number
   const itemsPerPage = 10;
   const handleAvatarClick = (event) => {
@@ -42,49 +46,69 @@ export default function Home() {
   };
 
   const handleAvatarProfile = () => {
-    navigate('/profile')
+    navigate("/profile");
   };
 
-  // const searchOptions = () => {
-  //   items.map((item, i) => {
-  //     setOptions([...options, {...item, label: item.title}])
-  //   })
-  // }
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/location")
+      .then((response) => {
+        let locations = response.data.message;
+        setIsLoading(false);
+        setLocations(locations);
+        console.log(locations);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/category")
+      .then((response) => {
+        let categories = response.data.message;
+        setIsLoading(false);
+        setCategories(categories);
+        console.log(categories);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   useEffect(() => {
     axios
       .get("http://localhost:5000/api/item")
       .then((response) => {
         let posts = response.data.message;
-        setIsLoading(false)
+        setIsLoading(false);
         setItems(posts);
       })
       .catch((error) => {
         console.log(error);
-        
       });
   }, []);
+
   const navigate = useNavigate();
   const username = Cookies.get("username");
 
-  
- const handleAvatarClose = () =>{
-  setAnchorEl(null)
- }
+  const handleAvatarClose = () => {
+    setAnchorEl(null);
+  };
   const handleLogout = () => {
     // Handle logout logic here
     // ...
     Cookies.remove("username");
-    Cookies.remove('email');
-    Cookies.remove('phone')
-    Cookies.remove('token')
-    Cookies.remove('isAdmin')
-    Cookies.remove('userId')
+    Cookies.remove("email");
+    Cookies.remove("phone");
+    Cookies.remove("token");
+    Cookies.remove("isAdmin");
+    Cookies.remove("userId");
     navigate("/login");
   };
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
-  }
+  };
   // Get the items for the current page
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -128,7 +152,7 @@ export default function Home() {
                 borderTopLeftRadius: "10px",
                 borderBottomLeftRadius: "10px",
                 backgroundColor: "white",
-                width:'60%'
+                width: "60%",
               }}
               renderInput={(params) => (
                 <TextField
@@ -138,7 +162,7 @@ export default function Home() {
                 />
               )}
             />
-            
+
             <div
               style={{
                 height: "100%",
@@ -159,102 +183,233 @@ export default function Home() {
           </div>
           <FormAddItem />
           {username ? (
-          <>
-            <IconButton
-              className={styles.AvatarButton}
+            <>
+              <IconButton
+                className={styles.AvatarButton}
+                onClick={handleAvatarClick}
+              >
+                <Avatar className={styles.Avatar} sx={{ bgcolor: "#28A745" }}>
+                  {username.charAt(0).toUpperCase()}
+                </Avatar>
+              </IconButton>
+              <Menu
+                id="account-menu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleAvatarClose}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+              >
+                <MenuItem onClick={handleAvatarProfile}>
+                  <AccountCircleIcon className={styles.MenuIcon} />
+                  My Account
+                </MenuItem>
+                <MenuItem onClick={handleLogout}>
+                  <LogoutIcon className={styles.MenuIcon} />
+                  Logout
+                </MenuItem>
+              </Menu>
+            </>
+          ) : (
+            <Avatar
+              className={styles.Avatar}
+              sx={{ bgcolor: "#28A745" }}
               onClick={handleAvatarClick}
-              
-            >
-              <Avatar className={styles.Avatar} sx={{ bgcolor: "#28A745" }}>
-                {username.charAt(0).toUpperCase()}
-              </Avatar>
-            </IconButton>
-            <Menu
-              id="account-menu"
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleAvatarClose}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-            >
-              <MenuItem onClick={handleAvatarProfile}>
-                <AccountCircleIcon className={styles.MenuIcon} />
-                My Account
-              </MenuItem>
-              <MenuItem onClick={handleLogout}>
-                <LogoutIcon className={styles.MenuIcon} />
-                Logout
-              </MenuItem>
-            </Menu>
-          </>
-        ) : (
-          <Avatar
-            className={styles.Avatar}
-            sx={{ bgcolor: "#28A745" }}
-            onClick={handleAvatarClick}
-          />
-        )}
-
-          
+            />
+          )}
         </div>
       </header>
-         <section className={styles.cardWrapper}>
-         {isLoading ? (<Loader /> ):
- (
-  currentItems.filter(item => item.isFound === false).filter((item) =>
-            selectedValue ? item.title  === selectedValue.title : true
-          ).map((item) => (
-    <section className={styles.card} key={item._id}>
-    <div className={styles.imageHolder}> <img 
-            src={`http://localhost:5000/${item.image}`}
-            alt="card pics"
-            // width={350}
-            // height={200}
-            className={styles.cardImg}
-                />
-             </div>
-      <div className={styles.infoWrapper}>
-        <h2>{item.title}</h2>
-        <h3>Founded by: {item.userId.username}</h3>
-        <h4>{item.location}</h4>
-        <h4>{item.category}</h4>
-        <p>{item.description}</p>
-        <small><strong>Date: </strong>{item.dateFound}</small>
-        <small><strong>Category: </strong>{item.categoryId.name}</small>
-        <small><strong>Location: </strong>{item.locationId.name}</small>
-        <div className={styles.buttonWrapper}>
-  <a href={`tel:+961${item.userId.phone}`} className={styles.phoneButton}>
-    <span style={{ display: 'flex', alignItems: 'center' }}>
-      <CallIcon style={{ color: 'white' }} />
-      <span style={{ marginLeft: '0.5rem' }}>Call</span>
-    </span>
-  </a>
-  <a style={{ justifyContent: 'center' }} href={`mailto:${item.userId.email}`} className={styles.emailButton}>
-    <span style={{ display: 'flex', alignItems: 'center' }}>
-      <EmailIcon style={{ color: '#28A745' }} />
-      <span style={{ marginLeft: '0.5rem' }}>Mail</span>
-    </span>
-  </a>
-</div>
 
-      </div>
-      
-    </section>
-  )))}
-  <Pagination
-        style={{alignSelf:'center'}}
-        count={Math.ceil(items.length / itemsPerPage)}
-        color="success"
-        page={currentPage}
-        onChange={handlePageChange}
-      />
-</section>
+      <section className={styles.cardWrapper}>
+        <div>
+          <h2
+            style={{
+              alignSelf: "center",
+              fontWeight: "600",
+              color: "#394452",
+              marginTop: "20px",
+              marginLeft: "30px",
+            }}
+          >
+            Filter By <span style={{ color: "#28A745" }}>Category</span>
+          </h2>
+          <Button
+            style={{
+              backgroundColor:
+                selectedCategory === null ? "#28A745" : "transparent",
+              borderRadius: "10px",
+              width: "80px",
+              color: selectedCategory === null ? "white" : "#28A745",
+              marginLeft: "10px",
+              textTransform: "capitalize",
+              fontSize: "12px",
+              marginTop: "10px",
+              border: selectedCategory === null ? "none" : "2px solid #28A745",
+            }}
+            onClick={() => setSelectedCategory(null)}
+          >
+            All
+          </Button>
+          {categories.map((category) => (
+            <Button
+              style={{
+                backgroundColor:
+                  selectedCategory === category ? "#28A745" : "transparent",
+                borderRadius: "10px",
+                width: "80px",
+                color: selectedCategory === category ? "white" : "#28A745",
+                marginLeft: "10px",
+                textTransform: "capitalize",
+                fontSize: "12px",
+                marginTop: "10px",
+                border:
+                  selectedCategory === category ? "none" : "2px solid #28A745",
+              }}
+              key={category._id}
+              onClick={() => setSelectedCategory(category)}
+            >
+              {category.name}
+            </Button>
+          ))}
+        </div>
+        <div>
+          <h2
+            style={{
+              alignSelf: "center",
+              fontWeight: "600",
+              color: "#394452",
+              marginTop: "20px",
+              marginLeft: "30px",
+            }}
+          >
+            Filter By <span style={{ color: "#28A745" }}>Location</span>
+          </h2>
+          <Button
+            style={{
+              backgroundColor:
+                selectedLocation === null ? "#28A745" : "transparent",
+              borderRadius: "10px",
+              width: "80px",
+              color: selectedLocation === null ? "white" : "#28A745",
+              marginLeft: "10px",
+              textTransform: "capitalize",
+              fontSize: "12px",
+              marginTop: "10px",
+              border: selectedLocation === null ? "none" : "2px solid #28A745",
+            }}
+            onClick={() => setSelectedLocation(null)}
+          >
+            All
+          </Button>
+          {locations.map((category) => (
+            <Button
+              style={{
+                backgroundColor:
+                  selectedLocation === category ? "#28A745" : "transparent",
+                borderRadius: "10px",
+                width: "80px",
+                color: selectedLocation === category ? "white" : "#28A745",
+                marginLeft: "10px",
+                textTransform: "capitalize",
+                fontSize: "12px",
+                marginTop: "10px",
+                border:
+                selectedLocation === category ? "none" : "2px solid #28A745",
+              }}
+              key={category._id}
+              onClick={() => setSelectedLocation(category)}
+            >
+              {category.name}
+            </Button>
+          ))}
+        </div>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          currentItems
+            .filter((item) => item.isFound === false)
+            .filter((item) =>
+              selectedCategory
+                ? item.categoryId.name === selectedCategory.name
+                : true
+            )
+            .filter((item) =>
+              selectedLocation
+                ? item.locationId.name === selectedLocation.name
+                : true
+            )
+            .filter((item) =>
+              selectedValue ? item.title === selectedValue.title : true
+            )
+            .map((item) => (
+              <section className={styles.card} key={item._id}>
+                <div className={styles.imageHolder}>
+                  {" "}
+                  <img
+                    src={`http://localhost:5000/${item.image}`}
+                    alt="card pics"
+                    // width={350}
+                    // height={200}
+                    className={styles.cardImg}
+                  />
+                </div>
+                <div className={styles.infoWrapper}>
+                  <h2>{item.title}</h2>
+                  <h3>Founded by: {item.userId.username}</h3>
+                  <h4>{item.location}</h4>
+                  <h4>{item.category}</h4>
+                  <p>{item.description}</p>
+                  <small>
+                    <strong>Date: </strong>
+                    {item.dateFound}
+                  </small>
+                  <small>
+                    <strong>Category: </strong>
+                    {item.categoryId.name}
+                  </small>
+                  <small>
+                    <strong>Location: </strong>
+                    {item.locationId.name}
+                  </small>
+                  <div className={styles.buttonWrapper}>
+                    <a
+                      href={`tel:+961${item.userId.phone}`}
+                      className={styles.phoneButton}
+                    >
+                      <span style={{ display: "flex", alignItems: "center" }}>
+                        <CallIcon style={{ color: "white" }} />
+                        <span style={{ marginLeft: "0.5rem" }}>Call</span>
+                      </span>
+                    </a>
+                    <a
+                      style={{ justifyContent: "center" }}
+                      href={`mailto:${item.userId.email}`}
+                      className={styles.emailButton}
+                    >
+                      <span style={{ display: "flex", alignItems: "center" }}>
+                        <EmailIcon style={{ color: "#28A745" }} />
+                        <span style={{ marginLeft: "0.5rem" }}>Mail</span>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </section>
+            ))
+        )}
+        <Pagination
+          style={{ alignSelf: "center" }}
+          count={Math.ceil(items.length / itemsPerPage)}
+          color="success"
+          page={currentPage}
+          onChange={handlePageChange}
+        />
+      </section>
 
       <Footer />
     </>
