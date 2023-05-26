@@ -23,7 +23,7 @@ export default function AllRoutes() {
             <Route path="/" element={<Home />} />
   
             <Route path="*" element={<ErrorPage />} />
-            <Route path="/add-list-items" element={<AddListItems />} />
+            <Route path="/profile" element={<AddListItems />} />
             
                 <Route element={<PrivateDashboard/>}>
                     <Route path="/dashboard/categories" element={<Categories/>} />

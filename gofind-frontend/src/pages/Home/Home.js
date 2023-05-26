@@ -18,6 +18,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import IconButton from '@mui/material/IconButton';
 import {Pagination} from "@mui/material";
 import FormAddItem from "../../components/FormAddItem/FormAddItem.js";
+import Loader from "../../components/Loader/Loader.js";
 export default function Home() {
   // const renderAvatar = () => {
   //   if (username) {
@@ -33,6 +34,7 @@ export default function Home() {
   const [items, setItems] = useState([]);
   const [selectedValue, setSelectedValue] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [ isLoading, setIsLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1); // Current page number
   const itemsPerPage = 10;
   const handleAvatarClick = (event) => {
@@ -40,7 +42,7 @@ export default function Home() {
   };
 
   const handleAvatarProfile = () => {
-    navigate('/add-list-items')
+    navigate('/profile')
   };
 
   // const searchOptions = () => {
@@ -54,10 +56,12 @@ export default function Home() {
       .get("http://localhost:5000/api/item")
       .then((response) => {
         let posts = response.data.message;
+        setIsLoading(false)
         setItems(posts);
       })
       .catch((error) => {
         console.log(error);
+        
       });
   }, []);
   const navigate = useNavigate();
@@ -198,9 +202,10 @@ export default function Home() {
           
         </div>
       </header>
-      <section className={styles.cardWrapper}>
+      {isLoading ? (<Loader /> ):
+ (     <section className={styles.cardWrapper}>
   {currentItems.filter(item => item.isFound === false).filter((item) =>
-            selectedValue ? item.title === selectedValue.title : true
+            selectedValue ? item.title  === selectedValue.title : true
           ).map((item) => (
     <section className={styles.card} key={item._id}>
     <div className={styles.imageHolder}> <img 
@@ -247,7 +252,7 @@ export default function Home() {
         onChange={handlePageChange}
       />
 </section>
-
+)}
       <Footer />
     </>
   );
