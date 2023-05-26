@@ -33,3 +33,7 @@ a{
 :root{
   --primary-color: black;
 }
+::selection{
+  background-color: #28a745;
+  color: whitesmoke;
+}

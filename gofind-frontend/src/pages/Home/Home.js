@@ -204,9 +204,10 @@ export default function Home() {
           
         </div>
       </header>
-      {isLoading ? (<Loader /> ):
- (     <section className={styles.cardWrapper}>
-  {currentItems.filter(item => item.isFound === false).filter((item) =>
+         <section className={styles.cardWrapper}>
+         {isLoading ? (<Loader /> ):
+ (
+  currentItems.filter(item => item.isFound === false).filter((item) =>
             selectedValue ? item.title  === selectedValue.title : true
           ).map((item) => (
     <section className={styles.card} key={item._id}>
@@ -245,7 +246,7 @@ export default function Home() {
       </div>
       
     </section>
-  ))}
+  )))}
   <Pagination
         style={{alignSelf:'center'}}
         count={Math.ceil(items.length / itemsPerPage)}
@@ -254,7 +255,7 @@ export default function Home() {
         onChange={handlePageChange}
       />
 </section>
-)}
+
       <Footer />
     </>
   );
