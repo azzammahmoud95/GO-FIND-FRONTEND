@@ -158,7 +158,9 @@ export default function EditDeletePost() {
 
             <div>
               <Button
-                style={{border:'2px solid #28A745',color:'#28A745',borderRadius:'9px'}}
+                style={{border:'2px solid #28A745',color:'#28A745',borderRadius:'9px',
+                textTransform: "capitalize",
+                fontSize:'16px'}}
                 onClick={handleEdit}
                 
                 
@@ -169,7 +171,9 @@ export default function EditDeletePost() {
                 variant="contained"
                 onClick={() => handleDelete(item._id)}
                 
-                style={{marginLeft:"4px",borderRadius:'9px',backgroundColor:'#28A745'}}
+                style={{marginLeft:"4px",borderRadius:'9px',backgroundColor:'#28A745',
+                textTransform: "capitalize",
+                fontSize:'16px'}}
               >
                 Delete
               </Button>

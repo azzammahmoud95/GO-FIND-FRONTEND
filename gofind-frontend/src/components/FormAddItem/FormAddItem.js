@@ -92,6 +92,7 @@ export default function FormAddItem() {
         setDatefound("");
         setDescription("");
         setSuccessAlert(true);
+        
       })
       .catch((error) => console.log(error));
   };
@@ -105,7 +106,7 @@ export default function FormAddItem() {
           fontSize: "17px",
           alignSelf: "center",
           borderRadius: "10px",
-          padding: "10px 5px",
+          padding: "7px 3px",
           width: "150px",
           color: "white",
           border: "1px solid whitesmoke",

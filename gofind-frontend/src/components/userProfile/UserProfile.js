@@ -135,7 +135,9 @@ export default function UserProfile() {
             color: "#28A745",
             borderRadius: "9px",
             width: "150px",
-            marginLeft:'60px'
+            marginLeft:'60px',
+            textTransform: "capitalize",
+            fontSize:'16px'
           }}
           onClick={handleEdit}
         >
@@ -146,7 +148,9 @@ export default function UserProfile() {
             borderRadius: "9px",
             width: "150px",
             color:'white',
-            marginLeft:'20px'
+            marginLeft:'20px',
+            textTransform: "capitalize",
+            fontSize:'16px'
           }}
           onClick={() => navigate(-1)}>
             Go to home
