@@ -17,6 +17,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import IconButton from '@mui/material/IconButton';
 import {Pagination} from "@mui/material";
+import FormAddItem from "../../components/FormAddItem/FormAddItem.js";
 export default function Home() {
   // const renderAvatar = () => {
   //   if (username) {
@@ -150,6 +151,7 @@ export default function Home() {
               />
             </div>
           </div>
+          <FormAddItem />
           {username ? (
           <>
             <IconButton
@@ -193,29 +195,11 @@ export default function Home() {
           />
         )}
 
-          <Button
-            variant="contained"
-            style={{
-              backgroundColor: "#28A745",
-              textTransform: "capitalize",
-              fontSize: "17px",
-              alignSelf: "center",
-              borderRadius: "10px",
-              padding: "10px 5px",
-              width: "150px",
-              color: "white",
-              border: "1px solid whitesmoke",
-              fontWeight: "500",
-            }}
-            className={styles.addItem}
-            onClick={() => navigate("add-list-items")}
-          >
-            Add Item
-          </Button>
+          
         </div>
       </header>
       <section className={styles.cardWrapper}>
-  {currentItems.filter((item) =>
+  {currentItems.filter(item => item.isFound === false).filter((item) =>
             selectedValue ? item.title === selectedValue.title : true
           ).map((item) => (
     <section className={styles.card} key={item._id}>

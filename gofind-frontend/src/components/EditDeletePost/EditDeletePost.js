@@ -40,11 +40,14 @@ TabPanel.propTypes = {
   value: PropTypes.number.isRequired,
 };
 
-export default function EditDeletePost({handleSubmit, categories, selectedCategories,locations, selectedLocation, setSelectedCategories, setSelectedLocation}) {
+export default function EditDeletePost() {
   const [value, setValue] = useState(0);
   const [open, setOpen] = useState(false);
   const [item,setItem] = useState([])
-
+  const [ categories, setCategories] = useState([])
+  const [selectedCategories, setSelectedCategories] = useState('')
+  const [ locations, setLocations] = useState([])
+  const [ selectedLocation, setSelectedLocation] = useState('')
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -66,7 +69,31 @@ export default function EditDeletePost({handleSubmit, categories, selectedCatego
       .catch((error) => {
         console.log(error);
       });
-  },[handleSubmit]);
+  },[]); //! Here i have handle submit dependencies
+  // {handleSubmit, categories, selectedCategories,locations, selectedLocation, setSelectedCategories, setSelectedLocation}
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/location")
+      .then((response) => {
+        setLocations(response.data.message);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/category")
+      .then((response) => {
+        setCategories(response.data.message);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   const handleDelete = (itemId) => {
     axios
       .put(`http://localhost:5000/api/item/isfound/${itemId}`, { isFound: true })
