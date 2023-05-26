@@ -1,12 +1,12 @@
 .Footer{
     background-color: #222;
-    bottom: 0;
-    position: fixed;
+    bottom: 0 !important;
+    position: static; 
     width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
-    margin-top: 200px;
+    margin-top: 20px;
 }
 .LogoAndSocial{
     display: flex;

@@ -35,7 +35,7 @@ height: 200px;
 
 .card{
     display: flex;
-    width: 70%;
+    width: 60%;
     align-self: center;
     flex-wrap: nowrap;
     background-color: #fafafa;
@@ -56,6 +56,7 @@ height: 200px;
     display: flex;
     flex-direction: column;
     height: fit-content;
+    min-height: 80vh;
     /* align-items: center; */
 }
 .buttonWrapper{

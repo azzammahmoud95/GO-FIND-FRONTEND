@@ -223,7 +223,7 @@ export default function Home() {
         <h3>Founded by: {item.userId.username}</h3>
         <h4>{item.location}</h4>
         <h4>{item.category}</h4>
-        <p>{item.description.substring(0,50)+`..`}</p>
+        <p>{item.description}</p>
         <small><strong>Date: </strong>{item.dateFound}</small>
         <small><strong>Category: </strong>{item.categoryId.name}</small>
         <small><strong>Location: </strong>{item.locationId.name}</small>
@@ -247,7 +247,7 @@ export default function Home() {
     </section>
   ))}
   <Pagination
-        style={{alignSelf:'center',marginBottom:'200px'}}
+        style={{alignSelf:'center'}}
         count={Math.ceil(items.length / itemsPerPage)}
         color="success"
         page={currentPage}
