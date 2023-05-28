@@ -4,6 +4,8 @@ import AllRoutes from './components/routes';
 import { UserContext } from './userContext';
 import Cookies from 'js-cookie';
 import EditDeletePost from './components/EditDeletePost/EditDeletePost';
+import HeaderDashboard from './components/HeaderDashboard/HeaderDashboard';
+import SidebarDashboard from './components/SidebarDashboard/SidebarDashboard.js';
 
 function App() {
   const [token, setToken] = useState(null);
@@ -21,9 +23,11 @@ function App() {
 
   return (
     <div className="App">
-      <UserContext.Provider value={{ token, isLoggedIn, setToken, setIsLoggedIn,  isCheckAdmin, setIsCheckAdmin,user, setUser }}>
-        <AllRoutes />
-      </UserContext.Provider>
+      {/* <UserContext.Provider value={{ token, isLoggedIn, setToken, setIsLoggedIn,  isCheckAdmin, setIsCheckAdmin,user, setUser }}> */}
+        {/* <AllRoutes /> */}
+        {/* <HeaderDashboard /> */}
+        <SidebarDashboard />
+      {/* </UserContext.Provider> */}
     </div>
   );
 }
