@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import styles from './SidebarDashboard.module.css'
 import {
   Drawer,
@@ -22,11 +22,22 @@ import {
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Box } from "@mui/system";
 import Logo from "../../assests/Elements/LogonameBlackGreen.svg";
-
+import Cookies from "js-cookie";
 function SidebarDashboard() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width:600px)");
-
+  const navigate = useNavigate()
+  const handleLogout = () => {
+    // Handle logout logic here
+    // ...
+    Cookies.remove("username");
+    Cookies.remove("email");
+    Cookies.remove("phone");
+    Cookies.remove("token");
+    Cookies.remove("isAdmin");
+    Cookies.remove("userId");
+    navigate("/login");
+  };
   const handleDrawerToggle = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -35,24 +46,24 @@ function SidebarDashboard() {
     {
       text: "Dashboard",
       icon: <DashboardIcon />,
-    //   path: "/",
+      path: "/dashboard",
     },
     {
       text: "Admins",
       icon: <PersonIcon />,
-    //   path: "/admins",
+      path: "/dashboard/admins",
     },
     {
       text: "Locations",
       icon: <LocationOnIcon />,
-    //   path: "/transactions",
+      path: "/dashboard/locations",
     },
     
 
     {
       text: "Categories",
       icon: <CategoryIcon />,
-    //   path: "/addtransactionpage"
+      path: "/dashboard/categories",
     }
   ];
 
@@ -78,21 +89,21 @@ function SidebarDashboard() {
         {drawerItems.map((item, index) => (
           <ListItem
             button
-            // component={Link}
+            component={Link}
             to={item.path}
             key={item.path}
             onClick={handleDrawerToggle}
             style={{
               backgroundColor:
                 window.location.pathname === item.path
-                  ? "rgba(2, 111, 194, 0.1)"
+                  ? "rgba(38, 163, 81, 0.1)"
                   : "",
-              color: window.location.pathname === item.path ? "#026FC2" : "",
+              color: window.location.pathname === item.path ? "rgba(0, 128, 0, 1)" : "",
             }}
           >
             <ListItemIcon
               style={{
-                color: window.location.pathname === item.path ? "#026FC2" : "",
+                color: window.location.pathname === item.path ? "rgba(0, 128, 0, 1)" : "",
               }}
             >
               {item.icon}
@@ -111,7 +122,7 @@ function SidebarDashboard() {
           <ListItemIcon>
             <LogoutIcon />
           </ListItemIcon>
-          <ListItemText>Logout</ListItemText>
+          <ListItemText onClick={handleLogout}>Logout</ListItemText>
         </ListItem>
       </Box>
     </List>

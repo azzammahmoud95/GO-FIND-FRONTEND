@@ -23,11 +23,9 @@ function App() {
 
   return (
     <div className="App">
-      {/* <UserContext.Provider value={{ token, isLoggedIn, setToken, setIsLoggedIn,  isCheckAdmin, setIsCheckAdmin,user, setUser }}> */}
-        {/* <AllRoutes /> */}
-        {/* <HeaderDashboard /> */}
-        <SidebarDashboard />
-      {/* </UserContext.Provider> */}
+      <UserContext.Provider value={{ token, isLoggedIn, setToken, setIsLoggedIn,  isCheckAdmin, setIsCheckAdmin,user, setUser }}>
+        <AllRoutes />
+      </UserContext.Provider>
     </div>
   );
 }

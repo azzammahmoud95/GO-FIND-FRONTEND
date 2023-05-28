@@ -3,7 +3,10 @@ import { Route, Routes } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 import Home from "../../pages/Home/Home";
 import About from "../../pages/About/About.js";
-import Categories from "../../pages/Dashboard/Categories/Categories";
+import HomeDash from "../../pages/Dashboard/HomeDash/HomeDash.js";
+import CategoriesDash from "../../pages/Dashboard/CategoriesDash/CategoriesDash.js";
+import AdminsDash from '../../pages/Dashboard/AdminsDash/AdminsDash.js';
+import LocationsDash from '../../pages/Dashboard/LocationsDash/LocationsDash.js'
 import ErrorPage from "../../pages/ErrorPage/ErrorPage.js";
 import Signup from "../../pages/Signup/Signup.js";
 import Login from "../../pages/Login/Login";
@@ -26,7 +29,10 @@ export default function AllRoutes() {
             <Route path="/profile" element={<AddListItems />} />
             
                 <Route element={<PrivateDashboard/>}>
-                    <Route path="/dashboard/categories" element={<Categories/>} />
+                    <Route path="/dashboard" element={<HomeDash/>} />
+                    <Route path="/dashboard/categories" element={<CategoriesDash/>} />
+                    <Route path='/dashboard/locations' element={<LocationsDash />} />
+                    <Route path='/dashboard/admins' element={<AdminsDash/>} />
                 </Route>
           </Route>
         </Routes>

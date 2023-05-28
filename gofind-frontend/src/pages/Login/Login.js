@@ -84,7 +84,7 @@ export default function Login() {
     }
 
     if(response.data.isAdmin === true){
-    navigate('/dashboard/categories');
+    navigate('/dashboard');
   }else{
     navigate('/')
   }
