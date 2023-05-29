@@ -1,11 +1,18 @@
 
 import React from 'react'
+import { Stack } from '@mui/system'
 import Layout from '../../../components/Layout/Layout.js'
 export default function HomeDash() {
   return (
     <div  style={{ backgroundColor: "#F8F9FD" }}>
       <Layout>
-        <h1>hello home dash</h1>
+      <Stack direction="row" justifyContent="space-between" flexWrap="wrap-reverse">
+        {/* AdminCard */}
+      <Stack direction="column" spacing={4} width="30%" flexWrap="wrap-reverse">
+{/* Start Total admin */}
+
+      </Stack>
+      </Stack>
       </Layout>
     </div>
   )
