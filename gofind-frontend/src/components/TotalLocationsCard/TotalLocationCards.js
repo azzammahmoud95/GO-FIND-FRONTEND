@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Typography } from "@mui/material";
 import { Stack } from "@mui/system";
-import PermIdentityRoundedIcon from "@mui/icons-material/PermIdentityRounded";
 import Loader from "../Loader/Loader.js";
 import axios from "axios";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
-export default function TotalAdminsCard() {
-  const [totalAdmins, setTotalAdmins] = useState([]);
+export default function TotalLocationsCard() {
+  const [totalLocations, setTotalLocations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/user')
+    axios.get('http://localhost:5000/api/location')
       .then(response => {
-        setTotalAdmins(response.data.message);
+        setTotalLocations(response.data.message);
         setIsLoading(false);
       })
       .catch(error => {
@@ -20,8 +20,7 @@ export default function TotalAdminsCard() {
       });
   }, []);
 
-  const filteredAdmins = totalAdmins.filter(admin => admin.isAdmin === true);
-  const filteredUsers = totalAdmins.filter(admin => admin.isAdmin === false);
+  
 
   return (
     <Stack spacing={3} paddingY={3} paddingX={4} 
@@ -35,7 +34,7 @@ export default function TotalAdminsCard() {
       }}
     >
       <Typography variant="body2" sx={{ color: "#6D7D93" }}>
-        Total All Users
+        Total All Locations
       </Typography>
       <Stack direction="row" justifyContent="space-between">
         <Typography
@@ -46,14 +45,10 @@ export default function TotalAdminsCard() {
           {isLoading ? (
             <Loader />
           ) : (
-            <React.Fragment>
-              <span style={{ color: '#28a745' }}>{filteredAdmins.length}</span> Admins
-              <br />
-              <span style={{ color: '#28a745' }}>{filteredUsers.length}</span> Users
-            </React.Fragment>
+            <p><span style={{ color: '#28a745' }}>{totalLocations.length}</span> Locations </p>
           )}
         </Typography>
-        <PermIdentityRoundedIcon fontSize="large" sx={{ color: '#28a745' }} />
+        <LocationOnIcon fontSize="large" sx={{ color: '#28a745' }} />
       </Stack>
     </Stack>
   );

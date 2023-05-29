@@ -14,7 +14,6 @@ import {
 import {
   Dashboard as DashboardIcon,
   Person as PersonIcon,
-  CompareArrows as TransactionsIcon,
   Menu as MenuIcon,
   Logout as LogoutIcon,
   Category as CategoryIcon,

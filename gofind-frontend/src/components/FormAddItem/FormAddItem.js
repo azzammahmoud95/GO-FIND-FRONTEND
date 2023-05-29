@@ -14,8 +14,7 @@ import {
   Dialog,
 } from "@mui/material";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
-import UserProfile from "../../components/userProfile/UserProfile";
+
 export default function FormAddItem() {
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState("");
@@ -29,7 +28,6 @@ export default function FormAddItem() {
   const [userId, setUserId] = useState("");
   const [successAlert, setSuccessAlert] = useState(false);
 
-  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
