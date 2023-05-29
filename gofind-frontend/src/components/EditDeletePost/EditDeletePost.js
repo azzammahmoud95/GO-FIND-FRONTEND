@@ -160,7 +160,7 @@ export default function EditDeletePost() {
               <Button
                 style={{border:'2px solid #28A745',color:'#28A745',borderRadius:'9px',
                 textTransform: "capitalize",
-                fontSize:'16px'}}
+                fontSize:'16px',marginRight:'7px'}}
                 onClick={handleEdit}
                 
                 

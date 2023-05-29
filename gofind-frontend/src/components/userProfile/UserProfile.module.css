@@ -1,19 +1,32 @@
 .profileWrapper{
     display: flex;
     flex-wrap: wrap;
+    
+    /* justify-content: center; */
+    /* margin-left: 120px; */
     }
 .title{
-    font-size: 24px;
+    font-size: 35px;
     width: 100%;
+    margin-bottom: 30px;
+    
     text-align: center;
 }
 .infoWrapper {
     width: 90%;
     margin-left: 12px;
-    /* border: 1px solid red; */
+    
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    
+  }
+  .avatarAndInfoWrapper{
+    display: flex;
+    /* border: 2px solid blue; */
+    /* margin-left: 90px; */
+    width: 100%;
+    justify-content: center;
   }
   
   .userInfoPart {
@@ -29,9 +42,17 @@
   .userInfoPart h3 {
     margin: 9px 0;
   }
+.buttonWrapper{
+  /* margin-left: 130px; */
+  width: 70%;
+  display: flex;
+  justify-content: space-around;
+}
   @media(max-width: 900px){
     .profileWrapper{
         width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
     }
     .infoWrapper 
         {
@@ -39,6 +60,7 @@
     display: flex;
     flex-direction: column;
     row-gap: 10px;
+    align-items: flex-start;
     }
   
 }

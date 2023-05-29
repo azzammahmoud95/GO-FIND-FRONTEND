@@ -101,6 +101,7 @@ export default function UserProfile() {
       <h1 className={styles.title}>
         User <span style={{ color: "#28A745" }}>Profile</span>
       </h1>
+      <div className={styles.avatarAndInfoWrapper}>
       <Avatar sizes="10" sx={{ bgcolor: "#28A745", width: 55, height: 55 }}>
         {Cookies.get("username").charAt(0).toUpperCase()}
       </Avatar>
@@ -115,6 +116,21 @@ export default function UserProfile() {
           <h3>
             <strong>Date Of Birth:</strong> {userProfile.dateOfBirth}
           </h3>
+          <Button
+                  style={{
+                    border: "2px solid #28A745",
+                    color: "#28A745",
+                    borderRadius: "9px",
+                    width: "150px",
+                    
+                    textTransform: "capitalize",
+                    fontSize:'16px',
+                    marginTop:'10px'
+                  }}
+                  onClick={handleEdit}
+                >
+                  Edit Profile
+                </Button>
         </div>
         <div className={styles.userInfoPart}>
           <h3>
@@ -126,35 +142,22 @@ export default function UserProfile() {
           <h3>
             <strong>Gender:</strong> {userProfile.gender}
           </h3>
+          <Button style={{
+                    backgroundColor: "#28A745",
+                    borderRadius: "9px",
+                    width: "150px",
+                    color:'white',
+                    textTransform: "capitalize",
+                    fontSize:'16px',
+                    marginTop:'10px'
+                  }}
+                  onClick={() => navigate(-1)}>
+                    Go to home
+                </Button>
         </div>
         
       </div>
-      <Button
-          style={{
-            border: "2px solid #28A745",
-            color: "#28A745",
-            borderRadius: "9px",
-            width: "150px",
-            marginLeft:'60px',
-            textTransform: "capitalize",
-            fontSize:'16px'
-          }}
-          onClick={handleEdit}
-        >
-          Edit Profile
-        </Button>
-        <Button style={{
-            backgroundColor: "#28A745",
-            borderRadius: "9px",
-            width: "150px",
-            color:'white',
-            marginLeft:'20px',
-            textTransform: "capitalize",
-            fontSize:'16px'
-          }}
-          onClick={() => navigate(-1)}>
-            Go to home
-        </Button>
+      </div>    
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle
           style={{ alignSelf: "center", fontWeight: "600", color: "#394452" }}
