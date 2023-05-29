@@ -31,18 +31,16 @@ const AdminsList = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [locations]);
  
   const handleClickOpen = (id) => {
-    // Open the edit dialog and populate the form with the data of the selected admin
-    const selectedAdmin = locations.find((admin) => admin.id === id);
+    // Open the edit dialog and populate the form with the data of the selected location
+    const selectedLocation = locations.find((location) => location.id === id);
     setFormValues({
-      id: selectedAdmin.id,
-      name: selectedAdmin.name,
-      email: selectedAdmin.email,
+      id: selectedLocation.id,
+      name: selectedLocation.name,
     });
     setOpen(true);
-    
   };
 
   const handleClose = () => {
@@ -50,53 +48,46 @@ const AdminsList = () => {
     setFormValues({
       id: "",
       name: "",
-      email: "",
+
     });
     setOpen(false);
 
   };
 
-//   const handleEdit = (event) => {
-//   event.preventDefault();
-//   const id = formValues.id;
-//   const data = {
-//     name: formValues.name,
-//     email: formValues.email,
-//   };
-//   axios
-//     .patch(`http://localhost:8000/api/auth/admin/${id}`, data, {
-//       headers: {
-//         Authorization: "Bearer " + localStorage.getItem("access_token"),
-//       },
-//     })
-//     .then((response) => {
-//       // If the update was successful, update the list of locations and close the dialog
-//       // const updatedAdmins = updatedAdmins.map((admin) =>
-//       //   admin.id === id ? response.data : admin
-//       // );
-//       // setLocations(updatedAdmins);
-//       handleClose();
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
-// };
+  const handleEdit = (event) => {
+    event.preventDefault();
+    const id = formValues.id;
+    const data = {
+      name: formValues.name,
+    };
+    axios
+      .put(`http://localhost:5000/api/location/${id}`, data)
+      .then((response) => {
+        // If the update was successful, update the list of locations and close the dialog
+        const updatedLocations = locations.map((location) =>
+          location.id === id ? response.data : location
+        );
+        setLocations(updatedLocations);
+        handleClose();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  
 
-//   const handleDelete = (id) => {
-//     axios
-//       .delete(`http://localhost:8000/api/user/${id}`, {
-//         headers: {
-//           Authorization: "Bearer " + localStorage.getItem("access_token"),
-//         },
-//       })
-//       .then((response) => {
-//         // If the deletion was successful, update the list of locations
-//         setLocations(locations.filter((admin) => admin.id !== id));
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   };
+const handleDelete = (id) => {
+    axios
+      .delete(`http://localhost:5000/api/location/${id}`)
+      .then((response) => {
+        // If the deletion was successful, update the list of locations
+        console.log(response.data);
+        setLocations(locations.filter((location) => location.id !== id)); // Change location._id to location.id
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <Box
@@ -113,9 +104,9 @@ const AdminsList = () => {
         Locations 
       </Typography>
       <Stack spacing="10px">
-      {locations.map((admin) => (
+      {locations.map((location) => (
       <Box
-        key={admin._id}
+        key={location._id}
         sx={{
           display: "flex",
           alignItems: "center",
@@ -138,7 +129,7 @@ const AdminsList = () => {
                 </Box>
                 <Stack sx={{marginLeft:"30px"}}>
                     <Typography sx={{ fontWeight: "bold"}}>
-                      {admin.name}
+                      {location.name}
                     </Typography>
                     <Typography
                       sx={{
@@ -147,7 +138,7 @@ const AdminsList = () => {
                         fontSize: "14px",
                       }}
                     >
-                      {admin.email}
+                      {location.email}
                     </Typography>
                   </Stack>
         </Box>
@@ -168,7 +159,7 @@ const AdminsList = () => {
               marginRight:"50px"
             }}
             
-            onClick={() => handleClickOpen(admin.id)}
+            onClick={() => handleClickOpen(location.id)}
           >
             Edit
           </Button>
@@ -184,7 +175,7 @@ const AdminsList = () => {
               textTransform: "none",
               backgroundColor: "#28A745"
             }}
-            // onClick={() => handleDelete(admin.id)}
+            onClick={() => handleDelete(location._id)}
           >
             Delete
           </Button>
@@ -193,12 +184,12 @@ const AdminsList = () => {
     ))}
   </Stack>
   <Dialog open={open} onClose={handleClose}>
-    <form >
-    {/* onSubmit={handleEdit} */}
-    <DialogTitle style={{textAlign:"center", fontWeight:"600",color:"#394452"}}>Edit <Box display="inline" style={{color:'#026FC2'}}>Admin</Box></DialogTitle>     
+    <form onSubmit={handleEdit}>
+    <DialogTitle style={{textAlign:"center", fontWeight:"600",color:"#394452"}}>Edit <Box display="inline" style={{color:'#28A745'}}>Location</Box></DialogTitle>     
      <DialogContent >
         <Stack spacing={4} style={{display:"flex",alignItems:"center",flexDirection:"column",width:"400px"}}>
           <TextField
+          color="success"
             required
             sx={{marginTop:"5px"}}
             fullWidth
@@ -209,22 +200,13 @@ const AdminsList = () => {
               setFormValues({ ...formValues, name: event.target.value })
             }
           />
-          <TextField
-            required
-            fullWidth
-            label="Email"
-            variant="outlined"
-            value={formValues.email}
-            onChange={(event) =>
-              setFormValues({ ...formValues, email: event.target.value })
-            }
-          />
+
         </Stack>
       </DialogContent>
       <DialogActions style={{display:"flex",flexDirection:"row", justifyContent:"space-around",marginBottom:"20px"}}>
-        <Button variant="outlined" onClick={handleClose} style={{ backgroundColor: "#FFF", width: "120px",borderRadius: '10px',color:"#026FC2",fontWeight:"600" }}>Cancel</Button>
+        <Button variant="outlined" onClick={handleClose} style={{ backgroundColor: "#FFF", width: "120px",borderRadius: '10px',color:"#28A745",fontWeight:"600",border:'2px solid #28A745' }} color="success">Cancel</Button>
         <Button type="submit"
-         style={{ backgroundColor: "#026FC2",
+         style={{ backgroundColor: "#28A745",
           width: "120px",
           borderRadius: '10px',
           color:"#FFF",fontWeight:"600" }} variant="outlined">

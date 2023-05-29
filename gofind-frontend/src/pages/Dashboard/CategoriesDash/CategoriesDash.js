@@ -18,7 +18,7 @@ export default function CategoriesDash() {
             <img
               src={AdminCategories}
               alt="adminImg"
-              width="400"
+              width="450"
               style={{ marginTop: "100px" }}
             />
           </Stack>

@@ -18,7 +18,7 @@ export default function LocationsDash() {
             <img
               src={AdminLocation}
               alt="adminImg"
-              width="400"
+              width="450"
               style={{ marginTop: "100px" }}
             />
           </Stack>
