@@ -75,13 +75,15 @@ export default function Login() {
     // setToken(authToken);
     // setIsLoggedIn(true)
     if (response.status === 200) {
-      Cookies.set("token", authToken);
-      Cookies.set("isAdmin", response.data.isAdmin)
-      Cookies.set('email',response.data.email)
-      Cookies.set('username', response.data.username)
-      Cookies.set('phone', response.data.phone)
-      Cookies.set('userId', response.data._id)
-      console.log(Cookies.get("isAdmin"))
+      const expires = new Date();
+          expires.setDate(expires.getDate() + 30); // Set expiry date to one week from now
+          Cookies.set("token", authToken, { expires });
+          Cookies.set("isAdmin", response.data.isAdmin, { expires });
+          Cookies.set("email", response.data.email, { expires });
+          Cookies.set("username", response.data.username, { expires });
+          Cookies.set("phone", response.data.phone, { expires });
+          Cookies.set("userId", response.data._id, { expires });
+          console.log(Cookies.get("isAdmin"));
     }
 
     if(response.data.isAdmin === true){
