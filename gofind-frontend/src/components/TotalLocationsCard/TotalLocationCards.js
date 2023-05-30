@@ -4,6 +4,7 @@ import { Stack } from "@mui/system";
 import Loader from "../Loader/Loader.js";
 import axios from "axios";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import AddLocation from "../AddLocation/AddLocation.js";
 
 export default function TotalLocationsCard() {
   const [totalLocations, setTotalLocations] = useState([]);
@@ -50,6 +51,7 @@ export default function TotalLocationsCard() {
         </Typography>
         <LocationOnIcon fontSize="large" sx={{ color: '#28a745' }} />
       </Stack>
+      <AddLocation />
     </Stack>
   );
 }
