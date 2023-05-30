@@ -11,8 +11,8 @@ export default function HeaderDashboard({title="Dashboard"}) {
   return (
     <Box className={styles.HeaderContainer}>
             <Stack className={styles.Stack} direction="row" width="100%" justifyContent="space-between" alignItems="center">
-              <h1 >{title}</h1>
-              <Avatar fontSize="large" sx={{backgroundColor:'#28A745'}}/>
+              <h1 style={{fontSize:'35px'}}>{title}</h1>
+              {/* <Avatar fontSize="large" sx={{backgroundColor:'#28A745'}}/> */}
             </Stack>
           </Box>
           

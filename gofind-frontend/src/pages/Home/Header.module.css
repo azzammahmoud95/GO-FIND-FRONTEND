@@ -4,7 +4,7 @@
     flex-wrap: nowrap;
     column-gap: 3px;
     /* justify-self: space-between; */
-    margin-bottom: 70px;
+    /* margin-bottom: 70px; */
     z-index: 100;
     
 }
@@ -16,7 +16,7 @@
     padding-bottom: 0.4%;
     background-color: #222;
     width: 100%;
-    position: fixed;
+    /* position: fixed; */
     z-index: 100;
     
 }
@@ -77,6 +77,18 @@ height: 200px;
     align-items: center;
     font-weight: 700;
     
+}
+.searchBarWrapper{
+    width: 100%;
+    height: 300px;
+    /* border: 2px solid deeppink; */
+    display: flex;
+   
+    
+
+    background-image: url(../../assests//Illustration/wepik-export-20230530083233Qd7o.png);
+    background-size: cover;
+
 }
 
 .emailButton{

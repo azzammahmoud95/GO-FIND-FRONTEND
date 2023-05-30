@@ -19,18 +19,9 @@ import IconButton from "@mui/material/IconButton";
 import { Pagination } from "@mui/material";
 import FormAddItem from "../../components/FormAddItem/FormAddItem.js";
 import Loader from "../../components/Loader/Loader.js";
+import HeroImg from "../../assests/Illustration/heroImage.png"
 export default function Home() {
-  // const renderAvatar = () => {
-  //   if (username) {
-  //     return (
-  //       <Avatar sx={{ bgcolor: "#28A745" }}>
-  //         {username.charAt(0).toUpperCase()}
-  //       </Avatar>
-  //     );
-  //   } else {
-  //     return <Avatar sx={{ bgcolor: "#28A745" }} />;
-  //   }
-  // };
+
   const [items, setItems] = useState([]);
   const [selectedValue, setSelectedValue] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -125,63 +116,9 @@ export default function Home() {
             // style={{ marginRight: "20px" }}
             className={styles.logo}
           />
-          <div
-            style={{
-              width: "100%",
-              display: "flex",
-              flexWrap: "nowrap",
-              alignItems: "center",
-            }}
-          >
-            <Autocomplete
-              disablePortal
-              options={filteredItems}
-              freeSolo
-              type="text"
-              className={styles.searchBar}
-              color="success"
-              fullWidth
-              size="small"
-              onChange={(event, newValue) => setSelectedValue(newValue)}
-              style={{
-                outlineOffset: "0px",
-                outline: "none",
-                borderRadius: "7px",
-                borderTopRightRadius: "0px",
-                borderBottomRightRadius: "0px",
-                borderTopLeftRadius: "10px",
-                borderBottomLeftRadius: "10px",
-                backgroundColor: "white",
-                width: "60%",
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  placeholder={"Welcome to gofind here you can find you losts"}
-                  color="success"
-                />
-              )}
-            />
-
-            <div
-              style={{
-                height: "100%",
-                padding: "6.5px",
-                backgroundColor: "#28a745",
-                borderTopRightRadius: "10px",
-                borderBottomRightRadius: "10px",
-              }}
-            >
-              <SearchIcon
-                style={{
-                  backgroundColor: "#28a745",
-                  color: "whitesmoke",
-                  width: "100%",
-                }}
-              />
-            </div>
-          </div>
+          
           <FormAddItem />
+          
           {username ? (
             <>
               <IconButton
@@ -224,8 +161,73 @@ export default function Home() {
             />
           )}
         </div>
+        
       </header>
+{/* SearchBAr Start*/}
+<section className={styles.searchBarWrapper}>
+  
+      <div
+            style={{
+              width: "100%",
+              display: "flex",
+              flexWrap: "nowrap",
+              alignItems: "center",
+              justifyContent: "center"
 
+            }}
+          >
+            <Autocomplete
+              disablePortal
+              options={filteredItems}
+              freeSolo
+              type="text"
+              className={styles.searchBar}
+              color="success"
+              fullWidth
+              size="small"
+              onChange={(event, newValue) => setSelectedValue(newValue)}
+              style={{
+                outlineOffset: "0px",
+                outline: "none",
+                borderRadius: "7px",
+                borderTopRightRadius: "0px",
+                borderBottomRightRadius: "0px",
+                borderTopLeftRadius: "10px",
+                borderBottomLeftRadius: "10px",
+                backgroundColor: "white",
+                width: "60%",
+                
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  placeholder={"Welcome to gofind here you can find you losts"}
+                  color="success"
+                />
+              )}
+            />
+
+            <div
+              style={{
+                height: "40px",
+                padding: "6.5px",
+                backgroundColor: "#28a745",
+                borderTopRightRadius: "10px",
+                borderBottomRightRadius: "10px",
+              }}
+            >
+              <SearchIcon
+                style={{
+                  backgroundColor: "#28a745",
+                  color: "whitesmoke",
+                  width: "100%",
+                }}
+              />
+            </div>
+          </div>
+          </section>
+          {/* SearchBAr end*/}
+      
       <section className={styles.cardWrapper}>
         <div>
           <h2
@@ -279,6 +281,7 @@ export default function Home() {
           ))}
         </div>
         <div>
+          
           <h2
             style={{
               alignSelf: "center",
