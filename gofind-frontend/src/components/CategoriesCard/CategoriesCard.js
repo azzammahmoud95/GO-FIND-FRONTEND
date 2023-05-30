@@ -14,7 +14,7 @@ import CategoryIcon from '@mui/icons-material/Category';
 import axios from "axios";
 
 const AdminsList = () => {
-  const [categories, setLocations] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [open, setOpen] = useState(false);
   const [formValues, setFormValues] = useState({
     id: "",
@@ -26,7 +26,7 @@ const AdminsList = () => {
     axios
       .get(`${process.env.REACT_APP_NODE_ENV}/api/category`)
       .then((response) => {
-        setLocations(response.data.message);
+        setCategories(response.data.message);
       })
       .catch((error) => {
         console.log(error);
@@ -74,7 +74,7 @@ const AdminsList = () => {
 //       // const updatedAdmins = updatedAdmins.map((category) =>
 //       //   category.id === id ? response.data : category
 //       // );
-//       // setLocations(updatedAdmins);
+//       // setCategories(updatedAdmins);
 //       handleClose();
 //     })
 //     .catch((error) => {
@@ -82,17 +82,18 @@ const AdminsList = () => {
 //     });
 // };
 
-  const handleDelete = (id) => {
-    axios
-      .delete(`${process.env.REACT_APP_NODE_ENV}/api/category/${id}`)
-      .then((response) => {
-        // If the deletion was successful, update the list of categories
-        setLocations(categories.filter((category) => category.id !== id));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+const handleDelete = (id) => {
+  axios
+    .delete(`${process.env.REACT_APP_NODE_ENV}/api/category/${id}`)
+    .then((response) => {
+      // If the deletion was successful, update the list of Categories
+      console.log(response.data);
+      setCategories(categories.filter((categories) => categories.id !== id)); // Change location._id to location.id
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
   return (
     <Box
@@ -180,7 +181,7 @@ const AdminsList = () => {
               textTransform: "none",
               backgroundColor: "#28A745"
             }}
-            onClick={() => handleDelete(category.id)}
+            onClick={() => handleDelete(category._id)}
           >
             Delete
           </Button>

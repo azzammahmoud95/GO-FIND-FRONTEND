@@ -12,6 +12,7 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import CallIcon from "@mui/icons-material/Call";
 import EmailIcon from "@mui/icons-material/Email";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import { Menu, MenuItem } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -81,7 +82,8 @@ export default function Home() {
 
   const navigate = useNavigate();
   const username = Cookies.get("username");
-
+  const isAdminCookies = Cookies.get("isAdmin");
+console.log("Hello",isAdminCookies);
   const handleAvatarClose = () => {
     setAnchorEl(null);
   };
@@ -147,6 +149,12 @@ export default function Home() {
                   <AccountCircleIcon className={styles.MenuIcon} />
                   My Account
                 </MenuItem>
+                {isAdminCookies === "true" ? (
+                    <MenuItem onClick={() => navigate('/dashboard/admins')}>
+                      <DashboardIcon className={styles.MenuIcon} />
+                      Dashboard
+                    </MenuItem>
+                  ): null}
                 <MenuItem onClick={handleLogout}>
                   <LogoutIcon className={styles.MenuIcon} />
                   Logout

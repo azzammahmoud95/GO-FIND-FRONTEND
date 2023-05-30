@@ -12,7 +12,6 @@ import {
   Typography,
 } from "@mui/material";
 import {
-  Dashboard as DashboardIcon,
   Person as PersonIcon,
   Menu as MenuIcon,
   Logout as LogoutIcon,
@@ -42,11 +41,6 @@ function SidebarDashboard() {
   };
 
   const drawerItems = [
-    {
-      text: "Dashboard",
-      icon: <DashboardIcon />,
-      path: "/dashboard",
-    },
     {
       text: "Admins",
       icon: <PersonIcon />,
