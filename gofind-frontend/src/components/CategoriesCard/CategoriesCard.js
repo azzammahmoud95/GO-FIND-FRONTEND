@@ -34,8 +34,8 @@ const AdminsList = () => {
   }, []);
  
   const handleClickOpen = (id) => {
-    // Open the edit dialog and populate the form with the data of the selected admin
-    const selectedAdmin = categories.find((admin) => admin.id === id);
+    // Open the edit dialog and populate the form with the data of the selected category
+    const selectedAdmin = categories.find((category) => category.id === id);
     setFormValues({
       id: selectedAdmin.id,
       name: selectedAdmin.name,
@@ -64,15 +64,15 @@ const AdminsList = () => {
 //     email: formValues.email,
 //   };
 //   axios
-//     .patch(`http://localhost:8000/api/auth/admin/${id}`, data, {
+//     .patch(`http://localhost:8000/api/auth/category/${id}`, data, {
 //       headers: {
 //         Authorization: "Bearer " + localStorage.getItem("access_token"),
 //       },
 //     })
 //     .then((response) => {
 //       // If the update was successful, update the list of categories and close the dialog
-//       // const updatedAdmins = updatedAdmins.map((admin) =>
-//       //   admin.id === id ? response.data : admin
+//       // const updatedAdmins = updatedAdmins.map((category) =>
+//       //   category.id === id ? response.data : category
 //       // );
 //       // setLocations(updatedAdmins);
 //       handleClose();
@@ -82,21 +82,17 @@ const AdminsList = () => {
 //     });
 // };
 
-//   const handleDelete = (id) => {
-//     axios
-//       .delete(`http://localhost:8000/api/user/${id}`, {
-//         headers: {
-//           Authorization: "Bearer " + localStorage.getItem("access_token"),
-//         },
-//       })
-//       .then((response) => {
-//         // If the deletion was successful, update the list of categories
-//         setLocations(categories.filter((admin) => admin.id !== id));
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   };
+  const handleDelete = (id) => {
+    axios
+      .delete(`${process.env.REACT_APP_NODE_ENV}/api/category/${id}`)
+      .then((response) => {
+        // If the deletion was successful, update the list of categories
+        setLocations(categories.filter((category) => category.id !== id));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <Box
@@ -113,9 +109,9 @@ const AdminsList = () => {
         Categories 
       </Typography>
       <Stack spacing="10px">
-      {categories.map((admin) => (
+      {categories.map((category) => (
       <Box
-        key={admin._id}
+        key={category._id}
         sx={{
           display: "flex",
           alignItems: "center",
@@ -138,7 +134,7 @@ const AdminsList = () => {
                 </Box>
                 <Stack sx={{marginLeft:"30px"}}>
                     <Typography sx={{ fontWeight: "bold"}}>
-                      {admin.name}
+                      {category.name}
                     </Typography>
                     <Typography
                       sx={{
@@ -147,7 +143,7 @@ const AdminsList = () => {
                         fontSize: "14px",
                       }}
                     >
-                      {admin.email}
+                      {category.email}
                     </Typography>
                   </Stack>
         </Box>
@@ -168,7 +164,7 @@ const AdminsList = () => {
               marginRight:"50px"
             }}
             
-            onClick={() => handleClickOpen(admin.id)}
+            onClick={() => handleClickOpen(category.id)}
           >
             Edit
           </Button>
@@ -184,7 +180,7 @@ const AdminsList = () => {
               textTransform: "none",
               backgroundColor: "#28A745"
             }}
-            // onClick={() => handleDelete(admin.id)}
+            onClick={() => handleDelete(category.id)}
           >
             Delete
           </Button>

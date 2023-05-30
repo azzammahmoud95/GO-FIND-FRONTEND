@@ -4,6 +4,7 @@ import { Stack } from "@mui/system";
 import Loader from "../Loader/Loader.js";
 import axios from "axios";
 import CategoryIcon from '@mui/icons-material/Category';
+import AddCategory from "../AddCategory/AddCategory.js";
 export default function TotalCategoriesCard() {
   const [totalCategories, setTotalCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -49,6 +50,7 @@ export default function TotalCategoriesCard() {
         </Typography>
         <CategoryIcon fontSize="large" sx={{ color: '#28a745' }} />
       </Stack>
+      <AddCategory />
     </Stack>
   );
 }
