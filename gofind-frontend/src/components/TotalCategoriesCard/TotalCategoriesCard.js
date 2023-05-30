@@ -9,7 +9,7 @@ export default function TotalCategoriesCard() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/category')
+    axios.get(`${process.env.REACT_APP_NODE_ENV}/api/category`)
       .then(response => {
         setTotalCategories(response.data.message);
         setIsLoading(false);

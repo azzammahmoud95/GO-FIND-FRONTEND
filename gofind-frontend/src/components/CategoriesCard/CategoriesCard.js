@@ -24,7 +24,7 @@ const AdminsList = () => {
  
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/category")
+      .get(`${process.env.REACT_APP_NODE_ENV}/api/category`)
       .then((response) => {
         setLocations(response.data.message);
       })

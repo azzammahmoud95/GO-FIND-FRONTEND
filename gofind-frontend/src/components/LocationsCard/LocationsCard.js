@@ -24,7 +24,7 @@ const AdminsList = () => {
  
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/location")
+      .get(`${process.env.REACT_APP_NODE_ENV}/api/location`)
       .then((response) => {
         setLocations(response.data.message);
       })
@@ -61,7 +61,7 @@ const AdminsList = () => {
       name: formValues.name,
     };
     axios
-      .put(`http://localhost:5000/api/location/${id}`, data)
+      .put(`${process.env.REACT_APP_NODE_ENV}/api/location/${id}`, data)
       .then((response) => {
         // If the update was successful, update the list of locations and close the dialog
         const updatedLocations = locations.map((location) =>
@@ -78,7 +78,7 @@ const AdminsList = () => {
 
 const handleDelete = (id) => {
     axios
-      .delete(`http://localhost:5000/api/location/${id}`)
+      .delete(`${process.env.REACT_APP_NODE_ENV}/api/location/${id}`)
       .then((response) => {
         // If the deletion was successful, update the list of locations
         console.log(response.data);

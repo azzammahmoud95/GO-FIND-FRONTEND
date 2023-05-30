@@ -61,7 +61,7 @@ export default function EditDeletePost() {
   };
   useEffect(() => {
     axios
-      .get('http://localhost:5000/api/item')
+      .get(`${process.env.REACT_APP_NODE_ENV}/api/item`)
       .then((response) => {
         setItem(response.data.message);
         console.log(response.data.message);
@@ -73,7 +73,7 @@ export default function EditDeletePost() {
   // {handleSubmit, categories, selectedCategories,locations, selectedLocation, setSelectedCategories, setSelectedLocation}
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/location")
+      .get(`${process.env.REACT_APP_NODE_ENV}/api/location`)
       .then((response) => {
         setLocations(response.data.message);
         console.log(response.data);
@@ -85,7 +85,7 @@ export default function EditDeletePost() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/category")
+      .get(`${process.env.REACT_APP_NODE_ENV}/api/category`)
       .then((response) => {
         setCategories(response.data.message);
         console.log(response.data);
@@ -96,7 +96,7 @@ export default function EditDeletePost() {
   }, []);
   const handleDelete = (itemId) => {
     axios
-      .put(`http://localhost:5000/api/item/isfound/${itemId}`, { isFound: true })
+      .put(`${process.env.REACT_APP_NODE_ENV}/api/item/isfound/${itemId}`, { isFound: true })
       .then((response) => {
         console.log(response)
         // Update the item's isFound property to true in the local state
@@ -145,7 +145,7 @@ export default function EditDeletePost() {
             className={styles.cardContainer}
           >
               <img
-                  src={`http://localhost:5000/${item.image}`}
+                  src={`${process.env.REACT_APP_NODE_ENV}/${item.image}`}
                   alt="Image"
                   width={200}
                   height={100}

@@ -10,6 +10,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isCheckAdmin, setIsCheckAdmin] = useState(false);
   const [user, setUser] = useState(null);
+  console.log(process.env.REACT_APP_NODE_ENV)
+
   useEffect(() => {
     const authToken = Cookies.get('header'); // Get the value of the 'header' cookie
 

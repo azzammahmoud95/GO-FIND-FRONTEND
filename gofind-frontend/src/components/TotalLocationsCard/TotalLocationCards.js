@@ -10,7 +10,7 @@ export default function TotalLocationsCard() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/location')
+    axios.get(`${process.env.REACT_APP_NODE_ENV}/api/location`)
       .then(response => {
         setTotalLocations(response.data.message);
         setIsLoading(false);

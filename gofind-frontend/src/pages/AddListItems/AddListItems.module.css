@@ -12,11 +12,7 @@
   padding: 1%;
 }
 
-@media(max-width: 900px){
-  .FromAdd{
-  width: 100%;
-  }
-}
+
 .userProfile{
   width: 70%;
   background-color: #fafafa;
@@ -25,4 +21,12 @@
   margin-bottom: 30px;
   border-radius: 10px;
   padding: 1%;
+}
+@media(max-width: 900px){
+  .FromAdd{
+  width: 100%;
+  }
+  .userProfile{
+    width: 100%;
+  }
 }

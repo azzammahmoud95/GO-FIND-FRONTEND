@@ -11,6 +11,7 @@ import axios from "axios";
 import Cookies from "js-cookie"
 import { UserContext } from "../../userContext";
 
+
 export default function Login() {
   const { setToken, setIsLoggedIn,setIsCheckAdmin } = useContext(UserContext);
 
@@ -67,7 +68,7 @@ export default function Login() {
       isAdmin: formValues.isAdmin,
     };
 
-    axios.post("http://localhost:5000/api/user/login", formData)
+    axios.post(`${process.env.REACT_APP_NODE_ENV}/api/user/login`, formData)
   .then(response => {
     console.log(response);
     const authToken = response.data.token;

@@ -65,7 +65,7 @@ export default function UserProfile() {
     setUserIDD(userId);
 
     axios
-      .get(`http://localhost:5000/api/user/${userId}`)
+      .get(`${process.env.REACT_APP_NODE_ENV}/api/user/${userId}`)
       .then((response) => {
         setUserProfile(response.data.message);
         
@@ -86,7 +86,7 @@ export default function UserProfile() {
 
   const handleSave = () => {
     axios
-      .patch(`http://localhost:5000/api/user/${userId}`, updatedProfile)
+      .patch(`${process.env.REACT_APP_NODE_ENV}/api/user/${userId}`, updatedProfile)
       .then((response) => {
         setUpdatedProfile(response.data)
         handleClose();
@@ -116,7 +116,22 @@ export default function UserProfile() {
           <h3>
             <strong>Date Of Birth:</strong> {userProfile.dateOfBirth}
           </h3>
-          <Button
+          
+        </div>
+        <div className={styles.userInfoPart}>
+          <h3>
+            <strong>Username:</strong> {userProfile.username}
+          </h3>
+          <h3>
+            <strong>Phone:</strong> {userProfile.phone}
+          </h3>
+          <h3>
+            <strong>Gender:</strong> {userProfile.gender}
+          </h3>
+         
+        </div>
+        <div className={styles.buttonWrapper}>
+        <Button
                   style={{
                     border: "2px solid #28A745",
                     color: "#28A745",
@@ -131,18 +146,7 @@ export default function UserProfile() {
                 >
                   Edit Profile
                 </Button>
-        </div>
-        <div className={styles.userInfoPart}>
-          <h3>
-            <strong>Username:</strong> {userProfile.username}
-          </h3>
-          <h3>
-            <strong>Phone:</strong> {userProfile.phone}
-          </h3>
-          <h3>
-            <strong>Gender:</strong> {userProfile.gender}
-          </h3>
-          <Button style={{
+                <Button style={{
                     backgroundColor: "#28A745",
                     borderRadius: "9px",
                     width: "150px",
@@ -154,8 +158,7 @@ export default function UserProfile() {
                   onClick={() => navigate(-1)}>
                     Go to home
                 </Button>
-        </div>
-        
+                </div>
       </div>
       </div>    
       <Dialog open={open} onClose={handleClose}>

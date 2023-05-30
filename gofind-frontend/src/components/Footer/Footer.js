@@ -13,7 +13,7 @@ export default function Footer() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/api/item')
+      .get(`${process.env.REACT_APP_NODE_ENV}/api/item`)
       .then((response) => {
         setItemCount(response.data.message);
         console.log(response.data.message);

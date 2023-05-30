@@ -9,6 +9,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import axios from "axios";
 
 export default function Signup() {
+  console.log(process.env.REACT_APP_NODE_ENV)
   const [showPassword, setShowPassword] = useState(false);
   const [formValues, setFormValues] = useState({
     username: "",
@@ -86,7 +87,7 @@ export default function Signup() {
       phone: formValues.phone,
     };
 
-    axios.post("http://localhost:5000/api/user/register", formData)
+    axios.post(`${process.env.REACT_APP_NODE_ENV}/api/user/register`, formData)
   .then(response => {
     console.log(response);
     navigate('/login');

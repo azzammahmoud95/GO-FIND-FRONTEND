@@ -24,7 +24,7 @@ const AdminsList = () => {
  
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/user")
+      .get(`${process.env.REACT_APP_NODE_ENV}/api/user`)
       .then((response) => {
         setAdmins(response.data.message);
       })

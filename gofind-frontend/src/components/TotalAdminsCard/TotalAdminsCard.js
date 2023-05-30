@@ -10,7 +10,7 @@ export default function TotalAdminsCard() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/user')
+    axios.get(`${process.env.REACT_APP_NODE_ENV}/api/user`)
       .then(response => {
         setTotalAdmins(response.data.message);
         setIsLoading(false);

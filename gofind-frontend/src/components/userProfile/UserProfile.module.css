@@ -1,7 +1,6 @@
 .profileWrapper{
     display: flex;
     flex-wrap: wrap;
-    
     /* justify-content: center; */
     /* margin-left: 120px; */
     }
@@ -9,11 +8,10 @@
     font-size: 35px;
     width: 100%;
     margin-bottom: 30px;
-    
     text-align: center;
 }
 .infoWrapper {
-    width: 90%;
+    width: 80%;
     margin-left: 12px;
     
     display: flex;
@@ -46,7 +44,8 @@
   /* margin-left: 130px; */
   width: 70%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  /* border: 2px solid purple; */
 }
   @media(max-width: 900px){
     .profileWrapper{
@@ -61,6 +60,10 @@
     flex-direction: column;
     row-gap: 10px;
     align-items: flex-start;
+    }
+    .buttonWrapper{
+      justify-content: space-between;
+      width: 90%;
     }
   
 }

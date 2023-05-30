@@ -39,7 +39,7 @@ export default function FormAddItem() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/location")
+      .get(`${process.env.REACT_APP_NODE_ENV}/api/location`)
       .then((response) => {
         setLocations(response.data.message);
         console.log(response.data);
@@ -51,7 +51,7 @@ export default function FormAddItem() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/category")
+      .get(`${process.env.REACT_APP_NODE_ENV}/api/category`)
       .then((response) => {
         setCategories(response.data.message);
         console.log(response.data);
@@ -80,7 +80,7 @@ export default function FormAddItem() {
     formData.append("description", description);
     console.log(formData);
     axios
-      .post("http://localhost:5000/api/item/additem", formData)
+      .post(`${process.env.REACT_APP_NODE_ENV}/api/item/additem`, formData)
       .then((response) => {
         console.log(response);
         setTitle("");

@@ -51,7 +51,7 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/location")
+      .get(`${process.env.REACT_APP_NODE_ENV}/api/location`)
       .then((response) => {
         let locations = response.data.message;
         setIsLoading(false);
@@ -65,7 +65,7 @@ export default function Home() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/category")
+      .get(`${process.env.REACT_APP_NODE_ENV}/api/category`)
       .then((response) => {
         let categories = response.data.message;
         setIsLoading(false);
@@ -78,7 +78,7 @@ export default function Home() {
   }, []);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/item")
+      .get(`${process.env.REACT_APP_NODE_ENV}/api/item`)
       .then((response) => {
         let posts = response.data.message;
         setIsLoading(false);
@@ -352,7 +352,7 @@ export default function Home() {
                 <div className={styles.imageHolder}>
                   {" "}
                   <img
-                    src={`http://localhost:5000/${item.image}`}
+                    src={`${process.env.REACT_APP_NODE_ENV}/${item.image}`}
                     alt="card pics"
                     // width={350}
                     // height={200}
