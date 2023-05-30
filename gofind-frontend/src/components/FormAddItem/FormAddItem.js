@@ -105,7 +105,7 @@ export default function FormAddItem() {
           alignSelf: "center",
           borderRadius: "10px",
           padding: "7px 3px",
-          width: "150px",
+          width: "110px",
           color: "white",
           border: "1px solid whitesmoke",
           fontWeight: "500",

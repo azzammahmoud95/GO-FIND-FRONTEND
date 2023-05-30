@@ -60,3 +60,8 @@
 .linkTo:hover{
     text-decoration: underline;
 }
+@media (max-width:460px) {
+    .formStyle{
+        width: 90%;
+    }
+}

@@ -3,21 +3,37 @@
     display: flex;
     flex-wrap: nowrap;
     column-gap: 3px;
-    /* justify-self: space-between; */
-    /* margin-bottom: 70px; */
+    justify-content: space-around;
+    /* border: 3px solid blue; */
     z-index: 100;
     
+    position: sticky;
+    top: 0;
 }
 .headerWrapper{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+
+    /* border: 2px solid red; */
     align-items: center ;  /* very important*/
     padding-top: 0.6%;
     padding-bottom: 0.4%;
     background-color: #222;
-    width: 100%;
+    width: 80%;
     /* position: fixed; */
-    z-index: 100;
+   
+    z-index: 100;   
+}
+.aboutLink{
+    color: #ebede9;
+    font-weight: 900;
+    margin-right: 30px;
+    font-size: 18px;
+}
+
+.aboutLink:hover{
+    color: hsl(134, 58%, 56%);
+    cursor: pointer;
     
 }
 .cardImg{
@@ -32,7 +48,11 @@ height: 200px;
 .logo{
     width: 10rem;
 }
-
+.navBar{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
 
 
 .card{
@@ -100,7 +120,7 @@ height: 200px;
     font-weight: 700;
     margin-left: 10px;
 }
-@media (max-width:1500px) {
+/* @media (max-width:1500px) {
     .headerWrapper{
         width: 100%;
     }
@@ -118,22 +138,30 @@ height: 200px;
     .infoWrapper{
         width:70%;
     }
-}
-@media (max-width:403px) {
+} */
+@media (max-width:440px) {
     .headerWrapper{
-        width: 98%;
+        width: 100%;
+        justify-content: space-between;
 
     }
     .cardWrapper{
-        display: flex;
-        
+        display: flex;   
         flex-direction: column;
     }
-
+    
     .card{
         width: 100%;
+        margin-top: 9px;
     }
     .addItem{
-        padding: 5px 1px !important;
+        padding: 3px 1px !important;
+        width: 10px;
+    }
+    .aboutLink{
+        margin-right: 10px;
+    }
+    .logo{
+        width: 100px;
     }
 }

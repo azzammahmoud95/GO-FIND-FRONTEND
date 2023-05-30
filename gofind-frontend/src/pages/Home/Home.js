@@ -7,7 +7,7 @@ import styles from "./Header.module.css";
 import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
 import { Button, Avatar } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from "axios";
 import CallIcon from "@mui/icons-material/Call";
@@ -19,7 +19,6 @@ import IconButton from "@mui/material/IconButton";
 import { Pagination } from "@mui/material";
 import FormAddItem from "../../components/FormAddItem/FormAddItem.js";
 import Loader from "../../components/Loader/Loader.js";
-import HeroImg from "../../assests/Illustration/heroImage.png"
 export default function Home() {
 
   const [items, setItems] = useState([]);
@@ -116,7 +115,8 @@ export default function Home() {
             // style={{ marginRight: "20px" }}
             className={styles.logo}
           />
-          
+        <nav className={styles.navBar}>
+          <Link to="/about" className={styles.aboutLink}>About</Link>
           <FormAddItem />
           
           {username ? (
@@ -160,6 +160,7 @@ export default function Home() {
               onClick={handleAvatarClick}
             />
           )}
+          </nav>
         </div>
         
       </header>
